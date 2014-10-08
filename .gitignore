@@ -1,0 +1,4 @@
+*.pyc
+local_settings.py
+.DS_Store
+.coverage
