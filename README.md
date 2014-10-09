@@ -77,7 +77,8 @@ class Tweet(models.Model, Activity):
 
 ####Activity extra data
 
-Most of the times you will need to store more data than just actor,verb,object fields; to do that you need to implement the extra_activity_data method in your Activity model.
+Often you'll want to store more data than just the basic fields. You achieve this by implementing the extra_activity_data method in the model.
+
 NOTE: you should only return data that json.dumps can handle (datetime instances are supported too).
 
 ```
@@ -92,7 +93,7 @@ class Tweet(models.Model, Activity):
 
 ###Feed manager
 
-Django_stream comes with a feed_manager class that helps with all common feed's operations.  
+Django Stream comes with a feed_manager class that helps with all common feed operations.  
 
 ####Feeds bundled with feed_manager
 
