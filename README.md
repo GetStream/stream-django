@@ -1,15 +1,22 @@
 
-###Stream_django
+###Stream Django
 
-This package helps you create user feeds and news feeds with Django and GetStream.io.
+This package helps you create activity streams & newsfeeds with Django and GetStream.io.
 
 You can check out our example app built using this library on [https://exampledjango.getstream.io](https://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
 
-###Features
-Settings integration    
-Model integration  
-Feed manager  
-Templating    
+###What can you build?
+
+<p align="center">
+  <img src="https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png" alt="Examples of what you can build" title="What you can build"/>
+</p>
+
+* Activity streams such as seen on Github
+* A twitter style newsfeed
+* A feed like instagram/ pinterest
+* Facebook style newsfeeds
+* A notification system
+
 
 ###Installation
 
@@ -26,48 +33,52 @@ INSTALLED_APPS = [
 ]
 ```
 
-Login to getstream.io and add
+Login with Github on getstream.io and add
 ```STREAM_API_KEY``` and ```STREAM_API_SECRET``` to your Django settings module (you can find them in the dashboard).
 
 ###Model integration
 
-You can have stream_django take care automatically of adding/removing model instances to user feeds; to do that let the model classes that need to be stored in feeds inherit from ```stream_django.activity.Activity```
+Stream Django can automatically publish new activities to your feed. Simple mixin the Activity class on the models you want to publish.
 
 ```
+from django_stream.activity import Activity
+
 class Tweet(models.Model, Activity):
+    ...
+    
+class Like(models.Model, Activity):
     ...
 ```
 
-From now on every time a Tweet is created; an activity referencing it will be added to its user' feed; feeds that follow that user will also automatically get the new tweet automatically in their feeds.
+Every time a Tweet is created it will be added to the user's feed. Users which follow the given user will also automatically get the new tweet in their feeds.
 
 ####Activity fields
 
-Models are stored in feeds as activities; an activity is composed by the following fields: **actor**, **verb**, **object** and by other optional extra fields.  
-The Activity class comes with a built-in capability of present an instance as an activity.
+Models are stored in feeds as activities. An activity is composed of at least the following fields: **actor**, **verb**, **object**, **time**. You can also add more custom data if needed.
+The Activity mixin will try to set things up automatically:
 
 **object** is a reference to the model instance  
 **actor** is a reference to the user attribute of the instance  
-**verb** is a nice string representation of the class name
+**verb** is a string representation of the class name
 
-While you probably won't never need to change the object field; you might need to adjust the other two fields to fit your data.
+By default the actor field will look for an attribute called user or actor.
+If you're user field is called differently you'll need to tell us where to look for it.
+Below shows an example how to set things up if your user field is called author.
 
 ```
 class Tweet(models.Model, Activity):
-    author = models.ForeignKey('core.User')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     @property
-    def verb(self):
-        return 'shout'
-
-    @property
-    def actor_attr(self):
-        return self.author
+    def actor_id(self):
+        return self.author_id
 
 ```
 
 ####Activity extra data
 
-Most of the times you will need to store more data than just actor,verb,object fields; to do that you need to implement the extra_activity_data method in your Activity model.
+Often you'll want to store more data than just the basic fields. You achieve this by implementing the extra_activity_data method in the model.
+
 NOTE: you should only return data that json.dumps can handle (datetime instances are supported too).
 
 ```
@@ -82,32 +93,39 @@ class Tweet(models.Model, Activity):
 
 ###Feed manager
 
-Django_stream comes with a feed_manager class that helps with all common feed's operations.  
+Django Stream comes with a feed_manager class that helps with all common feed operations.  
 
 ####Feeds bundled with feed_manager
 
-To get you started quickly the manager has already 3 feeds configured, this feeds are divided in two categories.
+To get you started the manager has 4 feeds pre configured. You can add more feeds if your application needs it.
+The three feeds are divided in three categories.
 
-#####Personal feed:
-this is where user activities are stored; something like Facebook personal timeline. You can get an instance of this feed from the manager  
+#####User feed:
+The user feed stores all activities for a user. Think of it as your personal Facebook page. You can easily get this feed from the manager.  
 ```
-feed_manager.get_personal_feed(user_id)
+feed_manager.get_user_feed(user_id)
 ```  
-#####User feeds:
-this is where activity coming from followed feeds is stored; (eg. Facebook newsfeed)
+#####News feeds:
+The news feeds store the activities from the people you follow. 
+There is both a flat newsfeed (similar to twitter) and an aggregated newsfeed (like facebook).
+
 ```
-flat_feed = feed_manager.get_user_feeds(user_id)['flat'] 
-aggregated_feed = feed_manager.get_user_feeds(user_id)['aggregated'] 
+flat_feed = feed_manager.get_news_feed(user_id)['flat'] 
+aggregated_feed = feed_manager.get_news_feed(user_id)['aggregated'] 
 
 ```
 #####Notification feed:
-this is where activity that mention a user lands (eg. a comment containing @thierry should be delievered to his notification feed)
+The notification feed can be used to build notification functionality. 
+
+<p align="center">
+  <img src="http://feedly.readthedocs.org/en/latest/_images/fb_notification_system.png" alt="Notification feed" title="Notification feed"/>
+  
+Below we show an example of how you can read the notification feed.
 ```
 notification_feed = feed_manager.get_notification_feed(user_id)
 
 ```
-
-When an Activity model is saved, the manager will send the activity to the notification feeds for the user_ids returned by the notify property:
+By default the notification feed will be empty. You can specify which users to notify when your model gets created. In the case of a retweet you probably want to notify the user of the parent tweet.
 
 ```
 class Tweet(models.Model, Activity):
@@ -119,6 +137,16 @@ class Tweet(models.Model, Activity):
 
 ```
 
+Another example would be following a user. You would commonly want to notify the user which is being followed.
+
+```
+class Follow(models.Model, Activity):
+
+    @property
+    def notify(self):
+        return [self.target_user.id]
+
+```
 
 
 ####Follow a feed
