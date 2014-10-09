@@ -120,13 +120,12 @@ The notification feed can be used to build notification functionality.
 <p align="center">
   <img src="http://feedly.readthedocs.org/en/latest/_images/fb_notification_system.png" alt="Notification feed" title="Notification feed"/>
   
-this is where activity that mention a user lands (eg. a comment containing @thierry should be delievered to his notification feed)
+Below we show an example of how you can read the notification feed.
 ```
 notification_feed = feed_manager.get_notification_feed(user_id)
 
 ```
-
-When an Activity model is saved, the manager will send the activity to the notification feeds for the user_ids returned by the notify property:
+By default the notification feed will be empty. You can specify which users to notify when your model gets created. In the case of a retweet you probably want to notify the user of the parent tweet.
 
 ```
 class Tweet(models.Model, Activity):
@@ -138,6 +137,16 @@ class Tweet(models.Model, Activity):
 
 ```
 
+Another example would be following a user. You would commonly want to notify the user which is being followed.
+
+```
+class Follow(models.Model, Activity):
+
+    @property
+    def notify(self):
+        return [self.target_user.id]
+
+```
 
 
 ####Follow a feed
