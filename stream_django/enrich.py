@@ -13,9 +13,8 @@ DEFAULT_FIELDS = ('actor', 'object')
 
 class Enrich(object):
 
-    def __init__(self, fields=None):
-        if fields is None:
-            self.fields = fields
+    def __init__(self, fields=DEFAULT_FIELDS):
+        self.fields = fields
 
     def enrich_aggregated_activities(self, activities):
         references = {}
@@ -41,14 +40,25 @@ class Enrich(object):
                     model_references[f_ct].append(f_id)
         return model_references
 
+    def fetch_model_instances(self, modelClass, pks):
+        '''
+        returns a dict {id:modelInstance} with instances of model modelClass
+        and pk in pks
+        '''
+        hook_function_name = 'fetch_%s_instances' % (modelClass._meta.object_name, )
+        if hasattr(self, hook_function_name):
+            return getattr(self, hook_function_name)(pks)
+        qs = modelClass.objects
+        if hasattr(modelClass, 'related_models') and modelClass.related_models() is not None:
+            qs = qs.select_related(*modelClass.related_models())
+        return qs.in_bulk(pks)
+
     def _fetch_objects(self, references):
         objects = defaultdict(list)
         for content_type, ids in references.items():
             model = get_model(*content_type.split('.'))
-            qs = model.objects
-            if hasattr(model, 'related_models') and model.related_models() is not None:
-                qs = qs.select_related(*model.related_models())
-            objects[content_type] = qs.in_bulk(set(ids))
+            instances = self.fetch_model_instances(model, set(ids))
+            objects[content_type] = instances
         return objects
 
     def _inject_objects(self, activities, objects, fields):

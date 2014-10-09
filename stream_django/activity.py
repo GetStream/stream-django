@@ -7,18 +7,26 @@ def model_content_type(cls):
     return '%s.%s' % (cls._meta.app_label, cls._meta.object_name)
 
 
+def create_model_reference(model_instance):
+    '''
+    creates a reference to a model instance that can be stored in activities
+
+    >>> from core.models import Like
+    >>> like = Like.object.get(id=1)
+    >>> create_model_reference(like)
+    core.Like:1
+
+    '''
+    content_type = model_content_type(model_instance.__class__)
+    content_id = model_instance.pk
+    return '%s:%s' % (content_type, content_id)
+
+
 class Activity(object):
     
     @property
     def author_feed(self):
         pass
-
-    @classmethod
-    def content_type(cls):
-        '''
-        the content_type reference for this activity model
-        '''
-        return model_content_type(cls)
 
     @classmethod
     def related_models(cls):
@@ -49,8 +57,7 @@ class Activity(object):
 
     @property
     def actor(self):
-        actor_cls = self.actor_attr.__class__
-        return '%s:%s' % (model_content_type(actor_cls), self.actor_id)
+        return create_model_reference(self.actor_attr)
 
     @property
     def verb(self):
@@ -59,7 +66,7 @@ class Activity(object):
     
     @property
     def object(self):
-        return '%s:%s' % (self.__class__.content_type(), self.pk)
+        return create_model_reference(self)
 
     @property
     def foreign_id(self):

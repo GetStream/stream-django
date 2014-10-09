@@ -9,7 +9,6 @@ from django.db.models.signals import post_delete, post_save
 class FeedManager(object):
 
     def __init__(self):
-        self.content_type_models = {}
         self.notification_feed = conf.NOTIFICATION_FEED
         self.personal_feed = conf.PERSONAL_FEED
         self.user_feeds = conf.USER_FEEDS

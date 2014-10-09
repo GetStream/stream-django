@@ -13,16 +13,16 @@ Templating
 
 ###Installation
 
-Install django_stream package with pip:
+Install stream_django package with pip:
 
-```pip install django_stream```
+```pip install stream_django```
 
-add django_stream to your ```INSTALLED_APPS```
+add stream_django to your ```INSTALLED_APPS```
 
 ```
 INSTALLED_APPS = [
     ...
-    'django_stream'
+    'stream_django'
 ]
 ```
 
@@ -31,7 +31,7 @@ Login to getstream.io and add
 
 ###Model integration
 
-You can have django_stream take care automatically of adding/removing model instances to user feeds; to do that let the model classes that need to be stored in feeds inherit from ```django_stream.activity.Activity```
+You can have stream_django take care automatically of adding/removing model instances to user feeds; to do that let the model classes that need to be stored in feeds inherit from ```stream_django.activity.Activity```
 
 ```
 class Tweet(models.Model, Activity):
@@ -133,7 +133,7 @@ feed_manager.follow_user(request.user.id, target_user)
 You can always perform operations to Stream APIs by accessing the client instance directly.
 
 ```
-from django_stream.client import stream_client
+from stream_django.client import stream_client
 
 special_feed = stream_client.feed('special:42')
 special_feed.follow('flat:60')
@@ -142,13 +142,85 @@ special_feed.follow('flat:60')
 
 ####Activity enrichment
 
-Another useful feature of this module is that, once you read data from feeds, you don't have to fetch all the data referenced in the activities. The feed manager exposes a functions to efficiently "enrich" activities and aggregated activities.
+When you read data from feeds, a like instance will looke more or less this way:
 
 ```
+{'actor': 'core.User:1', 'verb': 'like', 'object': 'core.Like:42'}
+```
+
+This is far from being ready to get in your templates; you will need to replace object and actor fields with the right models instances; to do this you can use the enrich module.
+
+```
+from stream_django.enrich import Enrich
+
+
+enricher = Enrich()
 feed = feed_manager.get_feed('flat', request.user.id)
 activities = feed.get(limit=25)['results']
 enriched_activities = feed_manager.enrich_activities(activities)
 ``` 
+
+####Custom enrichment
+
+The built-in enrichment class should cover most of your needs, there are cases though when you need more complex enrichment logic; we will cover the most common use cases here.
+
+#####Enrich extra fields
+
+If you store references to model instances in the activity extra_data you can use the Enrich class to take care of it for you
+
+
+```
+from stream_django.activity import create_model_reference
+
+
+class Tweet(models.Model, Activity):
+
+    @property
+    def extra_activity_data(self):
+        ref = create_model_reference(self.parent_tweet)
+        return {'parent_tweet': self.parent_tweet }
+
+
+# instruct the enricher to enrich actor, object and parent_tweet fields
+enricher = Enrich(fields=['actor', 'object', 'parent_tweet'])
+feed = feed_manager.get_feed('flat', request.user.id)
+activities = feed.get(limit=25)['results']
+enriched_activities = feed_manager.enrich_activities(activities)
+
+```
+
+#####Change how models are retrieved
+
+The enrich class that comes with the packages tries to minimise the amount of database queries; models are grouped by their model class and then retrieved with a pk__in query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
+
+To change the retrival for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
+
+
+```
+
+class MyEnrich(Enrich):
+    '''
+    Overwrites how model instances are fetched from the database
+    '''
+
+    def fetch_model_instances(self, modelClass, pks):
+        '''
+        returns a dict {id:modelInstance} with instances of model modelClass
+        and pk in pks
+        '''
+        ...
+
+
+class AnotherEnrich(Enrich):
+    '''
+    Overwrites how Likes instances are fetched from the database
+    '''
+
+    def fetch_like_instances(self, pks):
+        return {l.id: l for l in Like.objects.cached_likes(ids)}
+
+```
+
 
 #####Prefetch related data
 
