@@ -8,10 +8,10 @@ FEED_MANAGER_CLASS = getattr(settings, 'STREAM_FEED_MANAGER_CLASS',
     'stream_django.managers.FeedManager'
 )
 
-PERSONAL_FEED = getattr(settings, 'STREAM_PERSONAL_FEED', 'user')
-NOTIFICATION_FEED = getattr(settings, 'STREAM_PERSONAL_FEED', 'notification')
-USER_FEEDS = getattr(settings, 'STREAM_USER_FEEDS',
-    dict(flat='flat', aggregated='aggregated')
+USER_FEED = getattr(settings, 'STREAM_USER_FEED', 'user')
+NEWS_FEEDS = getattr(settings, 'STREAM_NEWS_FEEDS',
+    {flat:'flat', aggregated:'aggregated'}
 )
+NOTIFICATION_FEED = getattr(settings, 'STREAM_PERSONAL_FEED', 'notification')
 
 DISABLE_MODEL_TRACKING = getattr(settings, 'STREAM_DISABLE_MODEL_TRACKING', False)

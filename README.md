@@ -245,17 +245,30 @@ The example below will use the template activity/[aggregated]/homepage_%(verb)s.
 
 ###Settings
 
-STREAM_API_KEY  
-STREAM_API_SECRET  
-STREAM_FEED_MANAGER_CLASS  
-STREAM_PERSONAL_FEED  
-STREAM_PERSONAL_FEED  
-STREAM_USER_FEEDS  
-STREAM_DISABLE_MODEL_TRACKING
+####STREAM_API_KEY####
+Your stream site api key. Default ```''```
+
+####STREAM_API_SECRET####
+Your stream site api key secret. Default ```''```
+
+####STREAM_FEED_MANAGER_CLASS####
+The path to the feed manager class. Default ```'stream_django.managers.FeedManager'```
+
+####STREAM_USER_FEED####
+The name of the feed (as it is configured in your GetStream.io Dasboard) where activities are stored. Default ```'user'```
+
+####STREAM_USER_FEEDS####
+The name of the news feed (as they are configured in your GetStream.io Dasboard) where activities from followed feeds are stored. Default ```{flat:'flat', aggregated:'aggregated'}```
+
+####STREAM_PERSONAL_FEED####
+The name of the feed (as it is configured in your GetStream.io Dasboard) where activity notifications are stored. Default ```'notification'```
+
+####STREAM_DISABLE_MODEL_TRACKING####
+Disable automatic tracking of Activity models. Default ```False```
 
 ###Temporarily disabling the signals
 
-When running data imports or other type of one of operations you might want to disable publishing the items to the user's feeds. You can do this by...
+When running data imports or other type of one of operations you might want to disable publishing the items to the user's feeds. You can do this via the ```STREAM_DISABLE_MODEL_TRACKING``` django setting.
 
 
 ###Customizing enrichment
