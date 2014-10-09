@@ -308,7 +308,9 @@ class Tweet(models.Model, Activity):
 ```
 
 ####Low level APIs access
-You can always perform operations to Stream APIs by accessing the client instance directly.
+When needed you can also use the low level Python API directly.
+The full explanation can be found on the [getstream.io documentation](https://getstream.io/docs/).
+
 
 ```
 from stream_django.client import stream_client
