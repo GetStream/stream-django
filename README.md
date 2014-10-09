@@ -202,7 +202,7 @@ from stream_django.enrich import Enrich
 enricher = Enrich()
 feed = feed_manager.get_feed('flat', request.user.id)
 activities = feed.get(limit=25)['results']
-enriched_activities = feed_manager.enrich_activities(activities)
+enriched_activities = enricher.enrich_activities(activities)
 ``` 
 
 
@@ -281,7 +281,7 @@ class Tweet(models.Model, Activity):
 enricher = Enrich(fields=['actor', 'object', 'parent_tweet'])
 feed = feed_manager.get_feed('flat', request.user.id)
 activities = feed.get(limit=25)['results']
-enriched_activities = feed_manager.enrich_activities(activities)
+enriched_activities = enricher.enrich_activities(activities)
 ```
 
 ####Change how models are retrieved
