@@ -150,24 +150,24 @@ class Follow(models.Model, Activity):
 
 
 ####Follow a feed
-The manager comes with APIs to let a user's feeds follow another user's personal feed. This code let current user's flat and aggregated feeds follow target_user's personal feed.
+The create the newsfeeds you need to notify the system about follow relationships. The manager comes with APIs to let a user's news feeds follow another user's feed. This code lets the current user's flat and aggregated feeds follow the target_user's personal feed.
 
 ```
 feed_manager.follow_user(request.user.id, target_user)
 
 ```
 
-
+### Showing the newsfeed
 
 ####Activity enrichment
 
-When you read data from feeds, a like instance will looke more or less this way:
+When you read data from feeds, a like activity will look like this:
 
 ```
 {'actor': 'core.User:1', 'verb': 'like', 'object': 'core.Like:42'}
 ```
 
-This is far from being ready to get in your templates; you will need to replace object and actor fields with the right models instances; to do this you can use the enrich module.
+This is far from ready for usage in your template. We call the process of loading the references from the database enrichment. An example is shown below:
 
 ```
 from stream_django.enrich import Enrich
@@ -181,9 +181,10 @@ enriched_activities = feed_manager.enrich_activities(activities)
 
 
 
-###Templating
+####Templating
 
-You can render activities using the include template tag ``` {% render_activity activity %} ```
+Now that you've enriched the activities you can render the template.
+For convenience we include the render activity template tag:
 
 ```
 {% load stream_django %}
@@ -194,9 +195,9 @@ You can render activities using the include template tag ``` {% render_activity 
 
 ```
 
-render_activity template tag will render the template activity/[aggregated]/%(verb)s.html with the activity as context
+The render_activity template tag will render the template activity/[aggregated]/[verb].html with the activity as context.
 
-for example activity/tweet.html will be used to render an normal activity with verb tweet
+For example activity/tweet.html will be used to render an normal activity with verb tweet
 
 ```
 {{ activity.actor.username }} said "{{ activity.object.body }} {{ activity.created_at|timesince }} ago"
@@ -205,14 +206,14 @@ for example activity/tweet.html will be used to render an normal activity with v
 and activity/aggregated/like.html for an aggregated activity with verb like
 
 ```
-{{ activity.actor_count }} user{{ activity.actor_count|pluralize }} liked {% render_activity activity.activities.0 %}
+{{ aggregated.actor_count }} user{{ aggregated.actor_count|pluralize }} liked {% render_activity aggregated.activities.0 %}
 ```
 
-If you need to support different kind of templates for the same activity, you case send a third parameter (template_prefix) to change the template selection.  
+If you need to support different kind of templates for the same activity, you case send a third parameter to change the template selection.  
 
-eg. this will use the template activity/[aggregated]/homepage_%(verb)s.html
+The example below will use the template activity/[aggregated]/homepage_%(verb)s.html
 ```
-{% render_activity activity 'homepage_' %}
+{% render_activity activity 'homepage' %}
 ```
 
 
