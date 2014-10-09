@@ -309,7 +309,7 @@ class Tweet(models.Model, Activity):
 
 ####Low level APIs access
 When needed you can also use the low level Python API directly.
-The full explanation can be found on the [getstream.io documentation](https://getstream.io/docs/).
+The full explanation can be found in the [getstream.io documentation](https://getstream.io/docs/).
 
 
 ```
