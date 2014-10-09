@@ -269,3 +269,14 @@ eg. this will use the template activity/[aggregated]/homepage_%(verb)s.html
 ```
 {% render_activity activity 'homepage_' %}
 ```
+
+
+###Settings
+
+STREAM_API_KEY  
+STREAM_API_SECRET  
+STREAM_FEED_MANAGER_CLASS  
+STREAM_PERSONAL_FEED  
+STREAM_PERSONAL_FEED  
+STREAM_USER_FEEDS  
+STREAM_DISABLE_MODEL_TRACKING
