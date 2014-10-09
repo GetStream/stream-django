@@ -226,6 +226,10 @@ STREAM_PERSONAL_FEED
 STREAM_USER_FEEDS  
 STREAM_DISABLE_MODEL_TRACKING
 
+###Temporarily disabling the signals
+
+When running data imports or other type of one of operations you might want to disable publishing the items to the user's feeds. You can do this by...
+
 
 ####Custom enrichment
 
