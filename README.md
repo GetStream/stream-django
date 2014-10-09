@@ -97,21 +97,29 @@ Django Stream comes with a feed_manager class that helps with all common feed op
 
 ####Feeds bundled with feed_manager
 
-To get you started quickly the manager has already 3 feeds configured, this feeds are divided in two categories.
+To get you started the manager has 4 feeds pre configured. You can add more feeds if your application needs it.
+The three feeds are divided in three categories.
 
-#####Personal feed:
-this is where user activities are stored; something like Facebook personal timeline. You can get an instance of this feed from the manager  
+#####User feed:
+The user feed stores all activities for a user. Think of it as your personal Facebook page. You can easily get this feed from the manager.  
 ```
-feed_manager.get_personal_feed(user_id)
+feed_manager.get_user_feed(user_id)
 ```  
-#####User feeds:
-this is where activity coming from followed feeds is stored; (eg. Facebook newsfeed)
+#####News feeds:
+The news feeds store the activities from the people you follow. 
+There is both a flat newsfeed (similar to twitter) and an aggregated newsfeed (like facebook).
+
 ```
-flat_feed = feed_manager.get_user_feeds(user_id)['flat'] 
-aggregated_feed = feed_manager.get_user_feeds(user_id)['aggregated'] 
+flat_feed = feed_manager.get_news_feed(user_id)['flat'] 
+aggregated_feed = feed_manager.get_news_feed(user_id)['aggregated'] 
 
 ```
 #####Notification feed:
+The notification feed can be used to build notification functionality. 
+
+<p align="center">
+  <img src="http://feedly.readthedocs.org/en/latest/_images/fb_notification_system.png" alt="Notification feed" title="Notification feed"/>
+  
 this is where activity that mention a user lands (eg. a comment containing @thierry should be delievered to his notification feed)
 ```
 notification_feed = feed_manager.get_notification_feed(user_id)
