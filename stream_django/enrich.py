@@ -45,7 +45,7 @@ class Enrich(object):
         returns a dict {id:modelInstance} with instances of model modelClass
         and pk in pks
         '''
-        hook_function_name = 'fetch_%s_instances' % (modelClass._meta.object_name, )
+        hook_function_name = 'fetch_%s_instances' % (modelClass._meta.object_name.lower(), )
         if hasattr(self, hook_function_name):
             return getattr(self, hook_function_name)(pks)
         qs = modelClass.objects
