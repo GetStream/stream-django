@@ -258,7 +258,7 @@ The path to the feed manager class. Default ```'stream_django.managers.FeedManag
 The name of the feed (as it is configured in your GetStream.io Dasboard) where activities are stored. Default ```'user'```
 
 ####STREAM_USER_FEEDS####
-The name of the news feed (as they are configured in your GetStream.io Dasboard) where activities from followed feeds are stored. Default ```{flat:'flat', aggregated:'aggregated'}```
+The name of the news feed (as they are configured in your GetStream.io Dasboard) where activities from followed feeds are stored. Default ```{'flat':'flat', 'aggregated':'aggregated'}```
 
 ####STREAM_PERSONAL_FEED####
 The name of the feed (as it is configured in your GetStream.io Dasboard) where activity notifications are stored. Default ```'notification'```
