@@ -188,6 +188,54 @@ activities = feed.get(limit=25)['results']
 enriched_activities = feed_manager.enrich_activities(activities)
 ``` 
 
+
+
+###Templating
+
+You can render activities using the include template tag ``` {% render_activity activity %} ```
+
+```
+{% load stream_django %}
+
+{% for activity in activities %}
+    {% render_activity activity %}
+{% endfor %}
+
+```
+
+render_activity template tag will render the template activity/[aggregated]/%(verb)s.html with the activity as context
+
+for example activity/tweet.html will be used to render an normal activity with verb tweet
+
+```
+{{ activity.actor.username }} said "{{ activity.object.body }} {{ activity.created_at|timesince }} ago"
+```
+
+and activity/aggregated/like.html for an aggregated activity with verb like
+
+```
+{{ activity.actor_count }} user{{ activity.actor_count|pluralize }} liked {% render_activity activity.activities.0 %}
+```
+
+If you need to support different kind of templates for the same activity, you case send a third parameter (template_prefix) to change the template selection.  
+
+eg. this will use the template activity/[aggregated]/homepage_%(verb)s.html
+```
+{% render_activity activity 'homepage_' %}
+```
+
+
+###Settings
+
+STREAM_API_KEY  
+STREAM_API_SECRET  
+STREAM_FEED_MANAGER_CLASS  
+STREAM_PERSONAL_FEED  
+STREAM_PERSONAL_FEED  
+STREAM_USER_FEEDS  
+STREAM_DISABLE_MODEL_TRACKING
+
+
 ####Custom enrichment
 
 The built-in enrichment class should cover most of your needs, there are cases though when you need more complex enrichment logic; we will cover the most common use cases here.
@@ -263,48 +311,3 @@ class Tweet(models.Model, Activity):
         return ['user']
 
 ```
-
-###Templating
-
-You can render activities using the include template tag ``` {% render_activity activity %} ```
-
-```
-{% load stream_django %}
-
-{% for activity in activities %}
-    {% render_activity activity %}
-{% endfor %}
-
-```
-
-render_activity template tag will render the template activity/[aggregated]/%(verb)s.html with the activity as context
-
-for example activity/tweet.html will be used to render an normal activity with verb tweet
-
-```
-{{ activity.actor.username }} said "{{ activity.object.body }} {{ activity.created_at|timesince }} ago"
-```
-
-and activity/aggregated/like.html for an aggregated activity with verb like
-
-```
-{{ activity.actor_count }} user{{ activity.actor_count|pluralize }} liked {% render_activity activity.activities.0 %}
-```
-
-If you need to support different kind of templates for the same activity, you case send a third parameter (template_prefix) to change the template selection.  
-
-eg. this will use the template activity/[aggregated]/homepage_%(verb)s.html
-```
-{% render_activity activity 'homepage_' %}
-```
-
-
-###Settings
-
-STREAM_API_KEY  
-STREAM_API_SECRET  
-STREAM_FEED_MANAGER_CLASS  
-STREAM_PERSONAL_FEED  
-STREAM_PERSONAL_FEED  
-STREAM_USER_FEEDS  
-STREAM_DISABLE_MODEL_TRACKING
