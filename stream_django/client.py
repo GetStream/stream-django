@@ -1,4 +1,4 @@
-from django_stream import conf
+from stream_django import conf
 import os
 import stream
 

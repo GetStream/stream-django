@@ -8,9 +8,9 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
-    name='django-stream',
+    name='stream-django',
     version='0.1',
-    packages=['django_stream'],
+    packages=['stream_django'],
     include_package_data=True,
     install_requires=[
         'stream-python'
