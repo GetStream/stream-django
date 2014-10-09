@@ -26,24 +26,14 @@ You can check out our example app built using this library on [https://exampledj
 - [Demo](#demo)
 - [Installation](#installation)
 - [Model integration](#model-integration)
-  - [Activity fields](#activity-fields)
-  - [Activity extra data](#activity-extra-data)
 - [Feed manager](#feed-manager)
-  - [Feeds bundled with feed_manager](#feeds-bundled-with-feed_manager)
-    - [User feed:](#user-feed)
-    - [News feeds:](#news-feeds)
-    - [Notification feed:](#notification-feed)
-  - [Follow a feed](#follow-a-feed)
 - [Showing the newsfeed](#showing-the-newsfeed)
   - [Activity enrichment](#activity-enrichment)
   - [Templating](#templating)
 - [Settings](#settings)
 - [Temporarily disabling the signals](#temporarily-disabling-the-signals)
 - [Customizing enrichment](#customizing-enrichment)
-  - [Enrich extra fields](#enrich-extra-fields)
-  - [Change how models are retrieved](#change-how-models-are-retrieved)
-  - [Prefetch related data](#prefetch-related-data)
-  - [Low level APIs access](#low-level-apis-access)
+- [Low level APIs access](#low-level-apis-access)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -342,7 +332,7 @@ class Tweet(models.Model, Activity):
 
 ```
 
-####Low level APIs access
+###Low level APIs access
 When needed you can also use the low level Python API directly.
 The full explanation can be found in the [getstream.io documentation](https://getstream.io/docs/).
 
