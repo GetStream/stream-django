@@ -7,8 +7,9 @@ You can check out our example app built using this library on [https://exampledj
 
 ###What can you build?
 
-![What you can build](https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png "Examples of what you can build")   
-
+<p align="center">
+  <img src="https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png" alt="Examples of what you can build" title="What you can build"/>
+</p>
 
 * Activity streams such as seen on Github
 * A twitter style newsfeed
