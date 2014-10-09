@@ -1,3 +1,32 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](http://doctoc.herokuapp.com/)*
+
+- [Stream Django](#stream-django)
+- [What can you build?](#what-can-you-build)
+- [Installation](#installation)
+- [Model integration](#model-integration)
+  - [Activity fields](#activity-fields)
+  - [Activity extra data](#activity-extra-data)
+- [Feed manager](#feed-manager)
+  - [Feeds bundled with feed_manager](#feeds-bundled-with-feed_manager)
+    - [User feed:](#user-feed)
+    - [News feeds:](#news-feeds)
+    - [Notification feed:](#notification-feed)
+  - [Follow a feed](#follow-a-feed)
+- [Showing the newsfeed](#showing-the-newsfeed)
+  - [Activity enrichment](#activity-enrichment)
+  - [Templating](#templating)
+- [Settings](#settings)
+- [Temporarily disabling the signals](#temporarily-disabling-the-signals)
+- [Customizing enrichment](#customizing-enrichment)
+  - [Enrich extra fields](#enrich-extra-fields)
+  - [Change how models are retrieved](#change-how-models-are-retrieved)
+  - [Prefetch related data](#prefetch-related-data)
+  - [Low level APIs access](#low-level-apis-access)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ###Stream Django
 
