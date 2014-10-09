@@ -231,18 +231,16 @@ STREAM_DISABLE_MODEL_TRACKING
 When running data imports or other type of one of operations you might want to disable publishing the items to the user's feeds. You can do this by...
 
 
-####Custom enrichment
+###Customizing enrichment
 
-The built-in enrichment class should cover most of your needs, there are cases though when you need more complex enrichment logic; we will cover the most common use cases here.
+Sometimes you'll want to customize how enrichment works. The documentation will show you several common options.
 
-#####Enrich extra fields
+####Enrich extra fields
 
 If you store references to model instances in the activity extra_data you can use the Enrich class to take care of it for you
 
-
 ```
 from stream_django.activity import create_model_reference
-
 
 class Tweet(models.Model, Activity):
 
@@ -257,18 +255,15 @@ enricher = Enrich(fields=['actor', 'object', 'parent_tweet'])
 feed = feed_manager.get_feed('flat', request.user.id)
 activities = feed.get(limit=25)['results']
 enriched_activities = feed_manager.enrich_activities(activities)
-
 ```
 
-#####Change how models are retrieved
+####Change how models are retrieved
 
-The enrich class that comes with the packages tries to minimise the amount of database queries; models are grouped by their model class and then retrieved with a pk__in query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
+The enrich class that comes with the packages tries to minimise the amount of database queries. The models are grouped by their class and then retrieved with a pk__in query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
 
 To change the retrival for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
 
-
 ```
-
 class MyEnrich(Enrich):
     '''
     Overwrites how model instances are fetched from the database
@@ -281,7 +276,6 @@ class MyEnrich(Enrich):
         '''
         ...
 
-
 class AnotherEnrich(Enrich):
     '''
     Overwrites how Likes instances are fetched from the database
@@ -293,10 +287,9 @@ class AnotherEnrich(Enrich):
 ```
 
 
-#####Prefetch related data
+####Prefetch related data
 
-Sooner or later you will end up loop over the activities fetched from a feed; if you access activity's related objects (eg. activity['object'].user) on every loop you will end up firing lot of queries and get into trouble. This is something that you can easily fix by instructing the manager to preload related objects. Underneath the manager will use Django's ORM select_related (https://docs.djangoproject.com/en/dev/ref/models/querysets/#select-related).
-
+You will commonly access related objects such as activity['object'].user. To prevent your newsfeed to run N queries you can instruct the manager to preload related objects. The manager will use Django's select_related functionality. (https://docs.djangoproject.com/en/dev/ref/models/querysets/#select-related).
 
 ```
 class Tweet(models.Model, Activity):
