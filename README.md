@@ -1,8 +1,6 @@
-###Stream Django
+##Stream Django
 
 This package helps you create activity streams & newsfeeds with Django and GetStream.io.
-
-You can check out our example app built using this library on [https://exampledjango.getstream.io](https://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
 
 ###What can you build?
 
@@ -16,12 +14,16 @@ You can check out our example app built using this library on [https://exampledj
 * Facebook style newsfeeds
 * A notification system
 
+### Demo
+
+You can check out our example app built using this library on [https://exampledjango.getstream.io](https://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
+
 ###Table of Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [Stream Django](#stream-django)
 - [What can you build?](#what-can-you-build)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Model integration](#model-integration)
   - [Activity fields](#activity-fields)
