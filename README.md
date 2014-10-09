@@ -1,15 +1,21 @@
 
-###Stream_django
+###Stream Django
 
-This package helps you create user feeds and news feeds with Django and GetStream.io.
+This package helps you create activity streams & newsfeeds with Django and GetStream.io.
 
 You can check out our example app built using this library on [https://exampledjango.getstream.io](https://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
 
-###Features
-Settings integration    
-Model integration  
-Feed manager  
-Templating    
+###What can you build?
+
+![What you can build](https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png "Examples of what you can build")   
+
+
+* Activity streams such as seen on Github
+* A twitter style newsfeed
+* A feed like instagram/ pinterest
+* Facebook style newsfeeds
+* A notification system
+
 
 ###Installation
 
