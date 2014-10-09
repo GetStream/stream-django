@@ -172,7 +172,6 @@ This is far from ready for usage in your template. We call the process of loadin
 ```
 from stream_django.enrich import Enrich
 
-
 enricher = Enrich()
 feed = feed_manager.get_feed('flat', request.user.id)
 activities = feed.get(limit=25)['results']
