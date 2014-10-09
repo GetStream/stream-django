@@ -1,21 +1,15 @@
 
-###Stream Django
+###Stream_django
 
-This package helps you create activity streams & newsfeeds with Django and GetStream.io.
+This package helps you create user feeds and news feeds with Django and GetStream.io.
 
 You can check out our example app built using this library on [https://exampledjango.getstream.io](https://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
 
-###What can you build?
-
-![What you can build](https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png "Examples of what you can build")   
-
-
-* Activity streams such as seen on Github
-* A twitter style newsfeed
-* A feed like instagram/ pinterest
-* Facebook style newsfeeds
-* A notification system
-
+###Features
+Settings integration    
+Model integration  
+Feed manager  
+Templating    
 
 ###Installation
 
@@ -32,42 +26,45 @@ INSTALLED_APPS = [
 ]
 ```
 
-Login to getstream.io and add
+Login with Github on getstream.io and add
 ```STREAM_API_KEY``` and ```STREAM_API_SECRET``` to your Django settings module (you can find them in the dashboard).
 
 ###Model integration
 
-You can have stream_django take care automatically of adding/removing model instances to user feeds; to do that let the model classes that need to be stored in feeds inherit from ```stream_django.activity.Activity```
+Stream Django can automatically publish new activities to your feed. Simple mixin the Activity class on the models you want to publish.
 
 ```
+from django_stream.activity import Activity
+
 class Tweet(models.Model, Activity):
+    ...
+    
+class Like(models.Model, Activity):
     ...
 ```
 
-From now on every time a Tweet is created; an activity referencing it will be added to its user' feed; feeds that follow that user will also automatically get the new tweet automatically in their feeds.
+Every time a Tweet is created it will be added to the user's feed. Users which follow the given user will also automatically get the new tweet in their feeds.
 
 ####Activity fields
 
-Models are stored in feeds as activities; an activity is composed by the following fields: **actor**, **verb**, **object** and by other optional extra fields.  
-The Activity class comes with a built-in capability of present an instance as an activity.
+Models are stored in feeds as activities. An activity is composed of at least the following fields: **actor**, **verb**, **object**, **time**. You can also add more custom data if needed.
+The Activity mixin will try to set things up automatically:
 
 **object** is a reference to the model instance  
 **actor** is a reference to the user attribute of the instance  
-**verb** is a nice string representation of the class name
+**verb** is a string representation of the class name
 
-While you probably won't never need to change the object field; you might need to adjust the other two fields to fit your data.
+By default the actor field will look for an attribute called user or actor.
+If you're user field is called differently you'll need to tell us where to look for it.
+Below shows an example how to set things up if your user field is called author.
 
 ```
 class Tweet(models.Model, Activity):
-    author = models.ForeignKey('core.User')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     @property
-    def verb(self):
-        return 'shout'
-
-    @property
-    def actor_attr(self):
-        return self.author
+    def actor_id(self):
+        return self.author_id
 
 ```
 
