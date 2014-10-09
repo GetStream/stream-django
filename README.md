@@ -157,16 +157,7 @@ feed_manager.follow_user(request.user.id, target_user)
 
 ```
 
-####Low level APIs access
-You can always perform operations to Stream APIs by accessing the client instance directly.
 
-```
-from stream_django.client import stream_client
-
-special_feed = stream_client.feed('special:42')
-special_feed.follow('flat:60')
-
-```
 
 ####Activity enrichment
 
@@ -309,5 +300,16 @@ class Tweet(models.Model, Activity):
     @classmethod
     def related_models(cls):
         return ['user']
+
+```
+
+####Low level APIs access
+You can always perform operations to Stream APIs by accessing the client instance directly.
+
+```
+from stream_django.client import stream_client
+
+special_feed = stream_client.feed('special:42')
+special_feed.follow('flat:60')
 
 ```
