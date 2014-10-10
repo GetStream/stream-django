@@ -53,11 +53,17 @@ class Enrich(object):
             qs = qs.select_related(*modelClass.related_models())
         return qs.in_bulk(pks)
 
+    def handle_missing_model_instances(self, modelClass, ids):
+        pass
+
     def _fetch_objects(self, references):
         objects = defaultdict(list)
         for content_type, ids in references.items():
             model = get_model(*content_type.split('.'))
-            instances = self.fetch_model_instances(model, set(ids))
+            ids = set(ids)
+            instances = self.fetch_model_instances(model, ids)
+            if len(instances) != len(ids):
+                self.handle_missing_model_instances(model, ids)
             objects[content_type] = instances
         return objects
 
