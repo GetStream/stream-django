@@ -9,7 +9,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='stream-django',
-    version='0.1',
+    version='0.2',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=[
