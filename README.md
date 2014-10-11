@@ -89,7 +89,7 @@ class Tweet(models.Model, Activity):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     @property
-    def actor_id(self):
+    def activity_actor_id(self):
         return self.author_id
 
 ```
@@ -150,7 +150,7 @@ By default the notification feed will be empty. You can specify which users to n
 class Tweet(models.Model, Activity):
 
     @property
-    def notify(self):
+    def activity_notify(self):
         if self.is_retweet and self.parent_tweet.author != self.author:
             return [self.parent_tweet.author_id]
 
@@ -162,7 +162,7 @@ Another example would be following a user. You would commonly want to notify the
 class Follow(models.Model, Activity):
 
     @property
-    def notify(self):
+    def activity_notify(self):
         return [self.target_user.id]
 
 ```
@@ -319,15 +319,15 @@ class AnotherEnrich(Enrich):
 ```
 
 
-####Prefetch related data
+####Preload related data
 
-You will commonly access related objects such as activity['object'].user. To prevent your newsfeed to run N queries you can instruct the manager to preload related objects. The manager will use Django's select_related functionality. (https://docs.djangoproject.com/en/dev/ref/models/querysets/#select-related).
+You will commonly access related objects such as activity['object'].user. To prevent your newsfeed to run N queries you can instruct the manager to load related objects. The manager will use Django's select_related functionality. (https://docs.djangoproject.com/en/dev/ref/models/querysets/#select-related).
 
 ```
 class Tweet(models.Model, Activity):
 
     @classmethod
-    def related_models(cls):
+    def activity_related_models(cls):
         return ['user']
 
 ```
