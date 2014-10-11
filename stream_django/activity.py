@@ -25,14 +25,18 @@ def create_model_reference(model_instance):
 class Activity(object):
     
     @property
-    def author_feed(self):
+    def activity_author_feed(self):
+        '''
+        The name of the feed where the activity will be stored; this is normally
+        used by the manager class to determine if the activity should be stored elsewehere than
+        settings.USER_FEED
+        '''
         pass
 
     @classmethod
-    def related_models(cls):
+    def activity_related_models(cls):
         '''
-        Use this hook to setup related data to preload
-        when reading activities from feeds.
+        Use this hook to setup related models to load during enrichment.
         It must return None or a list of relationships see Django select_related for reference
         '''
         pass
@@ -40,44 +44,50 @@ class Activity(object):
     @property
     def extra_activity_data(self):
         '''
-        Use this hook to setup extra activity data
-        '''
-        pass
+        Use this hook to store extra data in activities.
+        If you need to store references to model instances you should use create_model_refeactivity_rence
+
+        eg:
+            @property
+            def activity_extra_activity_data(self):
+                dict('parent_user'=create_model_reference(self.parent_usactivity_er))
+      activity_  '''
+     activity_   activity_activity_pass
 
     @property
-    def actor_attr(self):
+    def activity_actor_attr(self):
         '''
         Returns the model instance field that references the activity actor
         '''
         return self.user
 
     @property
-    def actor_id(self):
-        return self.actor_attr.pk
+    def activity_actor_id(self):
+        return self.activity_actor_attr.pk
 
     @property
-    def actor(self):
-        return create_model_reference(self.actor_attr)
+    def activity_actor(self):
+        return create_model_reference(self.activity_actor_attr)
 
     @property
-    def verb(self):
+    def activity_verb(self):
         model_name = slugify(self.__class__.__name__)
         return model_name
     
     @property
-    def object(self):
+    def activity_object(self):
         return create_model_reference(self)
 
     @property
-    def foreign_id(self):
-        return self.object
+    def activity_foreign_id(self):
+        return self.activity_object
 
     @property
-    def time(self):
+    def activity_time(self):
         return make_naive(self.created_at, pytz.utc)
     
     @property
-    def notify(self):
+    def activity_notify(self):
         pass
     
     def create_activity(self):
@@ -85,20 +95,20 @@ class Activity(object):
         if not extra_data:
             extra_data = {}
         
-        to = self.notify
+        to = self.activity_notify
         if to:
             extra_data['to'] = to
         
         activity = dict(
-            actor=self.actor,
-            verb=self.verb,
-            object=self.object,
-            foreign_id=self.foreign_id,
-            time=self.time,
+            actor=self.activity_actor,
+            verb=self.activity_verb,
+            object=self.activity_object,
+            foreign_id=self.activity_foreign_id,
+            time=self.activity_time,
             **extra_data
         )
         return activity
 
     @property
-    def template(self):
-        return "activity/%s.html" % self.verb
+    def activity_template(self):
+        return "activity/%s.html" % self.activity_verb

@@ -21,8 +21,8 @@ class FeedManager(object):
         return stream_client.feed('%s:%s' % (self.notification_feed, user_id))
 
     def get_actor_feed(self, instance=None):
-        if instance.author_feed is not None:
-            return instance.author_feed
+        if instance.activity_author_feed is not None:
+            return instance.activity_author_feed
         else:
             return self.user_feed
 
@@ -51,14 +51,14 @@ class FeedManager(object):
         if created:
             activity = instance.create_activity()
             feed_type = self.get_actor_feed(instance)
-            feed = self.get_feed(feed_type, instance.actor_id)
+            feed = self.get_feed(feed_type, instance.activity_actor_id)
             result = feed.add_activity(activity)
             return result
 
     def activity_delete(self, sender, instance, **kwargs):
         feed_type = self.get_actor_feed(instance)
-        feed = self.get_feed(feed_type, instance.actor_id)
-        result = feed.remove_activity(foreign_id=instance.foreign_id)
+        feed = self.get_feed(feed_type, instance.activity_actor_id)
+        result = feed.remove_activity(foreign_id=instance.activity_foreign_id)
         return result
 
     def bind_model(self, sender, **kwargs):
