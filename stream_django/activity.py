@@ -50,9 +50,9 @@ class Activity(object):
         eg:
             @property
             def activity_extra_activity_data(self):
-                dict('parent_user'=create_model_reference(self.parent_usactivity_er))
-      activity_  '''
-     activity_   activity_activity_pass
+                dict('parent_user'=create_model_reference(self.parent_user))
+        '''
+        pass
 
     @property
     def activity_actor_attr(self):
