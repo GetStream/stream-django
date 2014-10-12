@@ -1,22 +1,7 @@
 import unittest
-from stream_django.activity import Activity
 from stream_django.activity import create_model_reference
-from django.db import models
-
-
-class Tweet(Activity, models.Model):
-
-    @property
-    def activity_time(self):
-        return None
-
-    @property
-    def activity_actor(self):
-        return self.actor
-
-    @property
-    def activity_notify(self):
-        return ['thierry']
+from stream_django.activity import model_content_type
+from stream_django.tests import Tweet
 
 
 class ActivityTestCase(unittest.TestCase):
@@ -36,7 +21,7 @@ class ActivityTestCase(unittest.TestCase):
 
     def test_activity_object(self):
         activity = self.tweet.create_activity()
-        self.assertEqual(activity['object'], 'tests.Tweet:42')
+        self.assertEqual(activity['object'], 'stream_django.Tweet:42')
 
     def test_activity_notify(self):
         activity = self.tweet.create_activity()
@@ -44,7 +29,7 @@ class ActivityTestCase(unittest.TestCase):
 
     def test_activity_foreign_id(self):
         activity = self.tweet.create_activity()
-        self.assertEqual(activity['foreign_id'], 'tests.Tweet:42')
+        self.assertEqual(activity['foreign_id'], 'stream_django.Tweet:42')
 
     def test_activity_activity_template(self):
         self.assertEqual(self.tweet.activity_template, 'activity/tweet.html')
@@ -53,3 +38,6 @@ class ActivityTestCase(unittest.TestCase):
         activity = self.tweet.create_activity()
         ref = create_model_reference(self.tweet)
         self.assertEqual(activity['foreign_id'], ref)
+
+    def test_model_content_type(self):
+        self.assertEqual(model_content_type(Tweet), 'stream_django.Tweet')
