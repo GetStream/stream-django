@@ -1,20 +1,30 @@
 import os
 from setuptools import setup
 
+
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
 # allow setup.py to be run from any path
 os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'stream_django.tests.django_settings'
+
+test_requirements = [
+    'django>=1.5',
+    'nose'
+]
 
 setup(
     name='stream-django',
-    version='0.2',
+    version='0.3',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=[
-        'stream-python'
+        'stream-python',
+        'pytz'
     ],
+    tests_require=test_requirements,
+    test_suite='nose.collector',
     license='BSD License',
     description='A Django app to build activity feeds.',
     long_description=README,
