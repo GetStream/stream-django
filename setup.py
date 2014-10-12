@@ -1,5 +1,6 @@
 import os
 from setuptools import setup
+from stream_django import __version__
 
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
@@ -11,12 +12,13 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'stream_django.tests.django_settings'
 
 test_requirements = [
     'django>=1.5',
+    'httpretty',
     'nose'
 ]
 
 setup(
     name='stream-django',
-    version='0.3',
+    version=__version__,
     packages=['stream_django'],
     include_package_data=True,
     install_requires=[
