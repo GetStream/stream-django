@@ -7,7 +7,7 @@ register = template.Library()
 
 def render_activity(context, activity, template_prefix=''):
     if template_prefix != '':
-        template_prefix = '_%s' % template_prefix
+        template_prefix = '%s_' % template_prefix
     if 'activities' in activity:
         template_name = "activity/aggregated/%s%s.html" % (template_prefix, activity['verb'])
     else:
