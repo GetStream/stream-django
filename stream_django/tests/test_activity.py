@@ -25,7 +25,7 @@ class ActivityTestCase(unittest.TestCase):
 
     def test_activity_notify(self):
         activity = self.tweet.create_activity()
-        self.assertEqual(activity['to'], ['thierry'])
+        self.assertEqual(activity['to'], ['notification:thierry'])
 
     def test_activity_foreign_id(self):
         activity = self.tweet.create_activity()

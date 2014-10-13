@@ -14,4 +14,5 @@ class Tweet(Activity, models.Model):
 
     @property
     def activity_notify(self):
-        return ['thierry']
+        from stream_django.feed_manager import feed_manager
+        return [feed_manager.get_notification_feed('thierry')]
