@@ -90,8 +90,8 @@ class Tweet(models.Model, Activity):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     @property
-    def activity_actor_id(self):
-        return self.author_id
+    def activity_actor_attr(self):
+        return self.author
 
 ```
 
