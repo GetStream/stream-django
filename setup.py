@@ -29,7 +29,7 @@ setup(
     setup_requires=test_requirements,
     test_suite='nose.collector',
     license='BSD License',
-    description='A Django app to build activity feeds.',
+    description='A Django app to build activity, news and notification feeds.',
     long_description=README,
     url='https://getstream.io/',
     author='Tommaso Barbugli',
