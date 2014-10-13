@@ -12,7 +12,8 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'stream_django.tests.django_settings'
 test_requirements = [
     'django>=1.5',
     'httpretty',
-    'nose'
+    'nose',
+    'nosexcover'
 ]
 
 setup(
