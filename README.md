@@ -46,7 +46,7 @@ Install stream_django package with pip:
 
 add stream_django to your ```INSTALLED_APPS```
 
-```
+```python
 INSTALLED_APPS = [
     ...
     'stream_django'
@@ -60,7 +60,7 @@ Login with Github on getstream.io and add
 
 Stream Django can automatically publish new activities to your feed. Simple mixin the Activity class on the models you want to publish.
 
-```
+```python
 from django_stream.activity import Activity
 
 class Tweet(models.Model, Activity):
@@ -85,7 +85,7 @@ By default the actor field will look for an attribute called user or actor.
 If you're user field is called differently you'll need to tell us where to look for it.
 Below shows an example how to set things up if your user field is called author.
 
-```
+```python
 class Tweet(models.Model, Activity):
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
@@ -101,7 +101,7 @@ Often you'll want to store more data than just the basic fields. You achieve thi
 
 NOTE: you should only return data that json.dumps can handle (datetime instances are supported too).
 
-```
+```python
 class Tweet(models.Model, Activity):
 
     @property
@@ -122,14 +122,14 @@ The three feeds are divided in three categories.
 
 #####User feed:
 The user feed stores all activities for a user. Think of it as your personal Facebook page. You can easily get this feed from the manager.  
-```
+```python
 feed_manager.get_user_feed(user_id)
 ```  
 #####News feeds:
 The news feeds store the activities from the people you follow. 
 There is both a flat newsfeed (similar to twitter) and an aggregated newsfeed (like facebook).
 
-```
+```python
 flat_feed = feed_manager.get_news_feed(user_id)['flat'] 
 aggregated_feed = feed_manager.get_news_feed(user_id)['aggregated'] 
 
@@ -141,13 +141,13 @@ The notification feed can be used to build notification functionality.
   <img src="http://feedly.readthedocs.org/en/latest/_images/fb_notification_system.png" alt="Notification feed" title="Notification feed"/>
   
 Below we show an example of how you can read the notification feed.
-```
+```python
 notification_feed = feed_manager.get_notification_feed(user_id)
 
 ```
 By default the notification feed will be empty. You can specify which users to notify when your model gets created. In the case of a retweet you probably want to notify the user of the parent tweet.
 
-```
+```python
 class Tweet(models.Model, Activity):
 
     @property
@@ -160,7 +160,7 @@ class Tweet(models.Model, Activity):
 
 Another example would be following a user. You would commonly want to notify the user which is being followed.
 
-```
+```python
 class Follow(models.Model, Activity):
 
     @property
