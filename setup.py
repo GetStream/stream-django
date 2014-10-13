@@ -26,6 +26,7 @@ setup(
         'pytz'
     ],
     tests_require=test_requirements,
+    setup_requires=test_requirements,
     test_suite='nose.collector',
     license='BSD License',
     description='A Django app to build activity feeds.',
