@@ -97,7 +97,7 @@ class Activity(object):
         
         to = self.activity_notify
         if to:
-            extra_data['to'] = to
+            extra_data['to'] = [f.feed_id for f in to]
         
         activity = dict(
             actor=self.activity_actor,

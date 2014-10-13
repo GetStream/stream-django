@@ -153,7 +153,8 @@ class Tweet(models.Model, Activity):
     @property
     def activity_notify(self):
         if self.is_retweet and self.parent_tweet.author != self.author:
-            return [self.parent_tweet.author_id]
+            target_feed = feed_manager.get_notification_feed(self.parent_tweet.author_id)
+            return [target_feed]
 
 ```
 
