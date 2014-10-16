@@ -9,6 +9,8 @@ This package helps you create activity streams & newsfeeds with Django and [GetS
   <img src="https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png" alt="Examples of what you can build" title="What you can build"/>
 </p>
 
+You can build:
+
 * Activity streams such as seen on Github
 * A twitter style newsfeed
 * A feed like instagram/ pinterest
