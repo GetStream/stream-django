@@ -3,7 +3,7 @@
 
 This package helps you create activity streams & newsfeeds with Django and [GetStream.io](https://getstream.io).
 
-###Build activity stream & news feeds
+###Build activity streams & news feeds
 
 <p align="center">
   <img src="https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png" alt="Examples of what you can build" title="What you can build"/>
