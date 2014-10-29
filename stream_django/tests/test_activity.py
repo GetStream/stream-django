@@ -31,9 +31,6 @@ class ActivityTestCase(unittest.TestCase):
         activity = self.tweet.create_activity()
         self.assertEqual(activity['foreign_id'], 'stream_django.Tweet:42')
 
-    def test_activity_activity_template(self):
-        self.assertEqual(self.tweet.activity_template, 'activity/tweet.html')
-
     def test_create_reference(self):
         activity = self.tweet.create_activity()
         ref = create_model_reference(self.tweet)
