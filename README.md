@@ -1,5 +1,5 @@
 ##Stream Django
-[![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django)
+[![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django)[![Coverage Status](https://coveralls.io/repos/GetStream/stream-django/badge.png)](https://coveralls.io/r/GetStream/stream-django)
 
 This package helps you create activity streams & newsfeeds with Django and [GetStream.io](https://getstream.io).
 
