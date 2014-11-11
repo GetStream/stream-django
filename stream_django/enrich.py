@@ -69,7 +69,7 @@ class Enrich(object):
     def wrap_activities(self, activities):
         return [EnrichedActivity(a) for a in activities]
 
-    def is_ref(activity, field):
+    def is_ref(self, activity, field):
         return (activity.get('field', '').split(':') == 2)
 
     def _collect_references(self, activities, fields):
