@@ -9,6 +9,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 test_requirements = [
     'django>=1.5',
     'httpretty',
+    'coverage'
 ]
 
 setup(

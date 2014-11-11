@@ -1,2 +1,20 @@
 language: python
-script: python setup.py test
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+notifications:
+  email:
+    - thierryschellenbach@gmail.com
+    - tbarbugli@gmail.com
+install:
+  - pip install pep8==1.5.7 --use-mirrors
+  - pip install python-coveralls --use-mirrors
+  - pip install -e .
+script:
+  - coverage run --source=stream_django setup.py test
+after_script:
+  # ensure we validate against pep standards
+  - "pep8 --exclude=migrations --ignore=E501,E225,W293 stream"
+after_success:
+   - coveralls
