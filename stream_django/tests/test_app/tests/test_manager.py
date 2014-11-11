@@ -12,15 +12,15 @@ class ManagerTestCase(unittest.TestCase):
 
     def test_get_user_feed(self):
         feed = feed_manager.get_user_feed(42)
-        self.assertEqual(feed.feed_id, 'user:42')
+        self.assertEqual(feed.id, 'user:42')
 
     def test_get_user_feed_by_feed_type(self):
         feed = feed_manager.get_user_feed(42, 'personal')
-        self.assertEqual(feed.feed_id, 'personal:42')
+        self.assertEqual(feed.id, 'personal:42')
 
     def test_get_notification_feed(self):
         feed = feed_manager.get_notification_feed(42)
-        self.assertEqual(feed.feed_id, 'notification:42')
+        self.assertEqual(feed.id, 'notification:42')
 
     def test_get_actor_feed(self):
         tweet = Tweet()
@@ -44,11 +44,11 @@ class ManagerTestCase(unittest.TestCase):
 
     def test_get_feed(self):
         feed = feed_manager.get_feed('flat', 42)
-        self.assertEqual(feed.feed_id, 'flat:42')
+        self.assertEqual(feed.id, 'flat:42')
 
     def test_get_news_feeds(self):
         feeds = feed_manager.get_news_feeds(42)
         self.assertIn('flat', feeds)
         self.assertIn('aggregated', feeds)
-        self.assertEqual(feeds['flat'].feed_id, 'flat:42')
-        self.assertEqual(feeds['aggregated'].feed_id, 'aggregated:42')
+        self.assertEqual(feeds['flat'].id, 'flat:42')
+        self.assertEqual(feeds['aggregated'].id, 'aggregated:42')

@@ -63,7 +63,7 @@ Login with Github on getstream.io and add
 Stream Django can automatically publish new activities to your feed. Simple mixin the Activity class on the models you want to publish.
 
 ```python
-from django_stream.activity import Activity
+from stream_django.activity import Activity
 
 class Tweet(models.Model, Activity):
     ...
@@ -83,12 +83,13 @@ The Activity mixin will try to set things up automatically:
 **actor** is a reference to the user attribute of the instance  
 **verb** is a string representation of the class name
 
-By default the actor field will look for an attribute called user or actor.
+By default the actor field will look for an attribute called user or actor and a field called created_at to track creation time.
 If you're user field is called differently you'll need to tell us where to look for it.
 Below shows an example how to set things up if your user field is called author.
 
 ```python
 class Tweet(models.Model, Activity):
+    created_at = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     @property

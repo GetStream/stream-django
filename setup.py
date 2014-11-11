@@ -5,29 +5,24 @@ from setuptools import setup
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
-# allow setup.py to be run from any path
-os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'stream_django.tests.django_settings'
 
 test_requirements = [
     'django>=1.5',
     'httpretty',
-    'nose',
-    'nosexcover'
 ]
 
 setup(
     name='stream-django',
-    version='0.4.0',
+    version='1.0.0',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=[
-        'stream-python',
+        'stream-python>=2.0.0',
         'pytz'
     ],
     tests_require=test_requirements,
     setup_requires=test_requirements,
-    test_suite='nose.collector',
+    test_suite='runtests.runtests',
     license='BSD License',
     description='A Django app to build activity, news and notification feeds.',
     long_description=README,

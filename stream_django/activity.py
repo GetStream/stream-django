@@ -1,4 +1,5 @@
 from django.template.defaultfilters import slugify
+from django.utils.timezone import is_aware
 from django.utils.timezone import make_naive
 import pytz
 
@@ -84,7 +85,10 @@ class Activity(object):
 
     @property
     def activity_time(self):
-        return make_naive(self.created_at, pytz.utc)
+        atime = self.created_at
+        if is_aware(self.created_at):
+            atime = make_naive(atime, pytz.utc)
+        return atime
     
     @property
     def activity_notify(self):
@@ -97,7 +101,7 @@ class Activity(object):
         
         to = self.activity_notify
         if to:
-            extra_data['to'] = [f.feed_id for f in to]
+            extra_data['to'] = [f.id for f in to]
         
         activity = dict(
             actor=self.activity_actor,

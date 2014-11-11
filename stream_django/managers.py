@@ -14,11 +14,11 @@ class FeedManager(object):
     def get_user_feed(self, user_id, feed_type=None):
         if feed_type is None:
             feed_type = self.user_feed
-        feed = stream_client.feed('%s:%s' % (feed_type, user_id))
+        feed = stream_client.feed(feed_type, user_id)
         return feed
 
     def get_notification_feed(self, user_id):
-        return stream_client.feed('%s:%s' % (self.notification_feed, user_id))
+        return stream_client.feed(self.notification_feed, user_id)
 
     def get_actor_feed(self, instance=None):
         if instance.activity_author_feed is not None:
@@ -30,16 +30,16 @@ class FeedManager(object):
         news_feeds = self.get_news_feeds(user_id)
         target_feed = self.get_user_feed(target_user_id)
         for feed in news_feeds.values():
-            feed.follow(target_feed.feed_id)
+            feed.follow(target_feed.slug, target_feed.id)
 
     def unfollow_user(self, user_id, target_user_id):
         news_feeds = self.get_news_feeds(user_id)
         target_feed = self.get_user_feed(target_user_id)
         for feed in news_feeds.values():
-            feed.unfollow(target_feed.feed_id)
+            feed.unfollow(target_feed.slug, target_feed.id)
 
     def get_feed(self, feed, user_id):
-        return stream_client.feed('%s:%s' % (feed, user_id))
+        return stream_client.feed(feed, user_id)
 
     def get_news_feeds(self, user_id):
         feeds = {}

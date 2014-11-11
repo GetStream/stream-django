@@ -1,0 +1,12 @@
+from django.db import models
+from django.conf import settings
+from stream_django.activity import Activity
+
+
+class Pin(models.Model, Activity):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def activity_actor_attr(self):
+        return self.author
