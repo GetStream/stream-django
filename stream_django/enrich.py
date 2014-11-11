@@ -70,12 +70,12 @@ class Enrich(object):
         return [EnrichedActivity(a) for a in activities]
 
     def is_ref(self, activity, field):
-        return (activity.get('field', '').split(':') == 2)
+        return (len(activity.get(field, '').split(':')) == 2)
 
     def _collect_references(self, activities, fields):
         model_references = defaultdict(list)
         for activity, field in itertools.product(activities, fields):
-            if self.is_ref(activity, field):
+            if not self.is_ref(activity, field):
                 continue
             f_ct, f_id = activity[field].split(':')
             model_references[f_ct].append(f_id)
