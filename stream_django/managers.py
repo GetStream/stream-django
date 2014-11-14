@@ -30,13 +30,13 @@ class FeedManager(object):
         news_feeds = self.get_news_feeds(user_id)
         target_feed = self.get_user_feed(target_user_id)
         for feed in news_feeds.values():
-            feed.follow(target_feed.slug, target_feed.id)
+            feed.follow(target_feed.slug, target_feed.user_id)
 
     def unfollow_user(self, user_id, target_user_id):
         news_feeds = self.get_news_feeds(user_id)
         target_feed = self.get_user_feed(target_user_id)
         for feed in news_feeds.values():
-            feed.unfollow(target_feed.slug, target_feed.id)
+            feed.unfollow(target_feed.slug, target_feed.user_id)
 
     def get_feed(self, feed, user_id):
         return stream_client.feed(feed, user_id)
