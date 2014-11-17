@@ -17,7 +17,7 @@ class EnrichedActivity(collections.MutableMapping):
 
     def __init__(self, activity_data):
         self.activity_data = activity_data
-        self.not_enriched_fields = []
+        self.not_enriched_data = {}
 
     def __getitem__(self, key):
         return self.activity_data[self.__keytransform__(key)]
@@ -37,11 +37,12 @@ class EnrichedActivity(collections.MutableMapping):
     def __keytransform__(self, key):
         return key
 
-    def track_not_enriched_fields(self, field):
-        self.not_enriched_fields.append(field)
+    def track_not_enriched_field(self, field, value):
+        self.not_enriched_data[field] = value
 
+    @property
     def enriched(self):
-        len(self.not_enriched_fields) == 0
+        return len(self.not_enriched_data.keys()) == 0
 
 
 class Enrich(object):
@@ -104,16 +105,12 @@ class Enrich(object):
         return objects
 
     def _inject_objects(self, activities, objects, fields):
-        not_enriched = []
         for activity, field in itertools.product(activities, fields):
             if not self.is_ref(activity, field):
                 continue
             f_ct, f_id = activity[field].split(':')
             instance = objects[f_ct].get(int(f_id))
             if instance is None:
-                not_enriched.append(activity, field)
+                activity.track_not_enriched_field(field, activity[field])
             else:
                 activity[field] = instance
-
-        for activity, field in not_enriched:
-            activity.track_not_enriched_fields(field)
