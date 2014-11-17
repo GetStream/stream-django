@@ -210,7 +210,7 @@ Now that you've enriched the activities you can render the template.
 For convenience we include the render activity template tag:
 
 ```
-{% load stream_django %}
+{% load activity_tags %}
 
 {% for activity in activities %}
     {% render_activity activity %}

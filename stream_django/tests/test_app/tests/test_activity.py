@@ -1,6 +1,7 @@
 import unittest
 from stream_django.activity import create_model_reference
 from stream_django.activity import model_content_type
+from stream_django.activity import create_reference
 from stream_django.tests import Tweet
 
 
@@ -10,6 +11,11 @@ class ActivityTestCase(unittest.TestCase):
         self.tweet = Tweet()
         self.tweet.id = 42
         self.tweet.actor = 'tommaso'
+
+    def test_create_reference_to_model(self):
+        data = 'not-a-model'
+        ref = create_reference(data)
+        self.assertEqual(ref, data)
 
     def test_activity_verb(self):
         activity = self.tweet.create_activity()

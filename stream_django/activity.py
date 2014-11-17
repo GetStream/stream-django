@@ -1,3 +1,4 @@
+from django.db import models
 from django.template.defaultfilters import slugify
 from django.utils.timezone import is_aware
 from django.utils.timezone import make_naive
@@ -8,13 +9,19 @@ def model_content_type(cls):
     return '%s.%s' % (cls._meta.app_label, cls._meta.object_name)
 
 
+def create_reference(reference):
+    if isinstance(reference, (models.Model, )):
+        return create_model_reference(reference)
+    return reference
+
+
 def create_model_reference(model_instance):
     '''
     creates a reference to a model instance that can be stored in activities
 
     >>> from core.models import Like
     >>> like = Like.object.get(id=1)
-    >>> create_model_reference(like)
+    >>> create_reference(like)
     core.Like:1
 
     '''
@@ -51,7 +58,7 @@ class Activity(object):
         eg:
             @property
             def activity_extra_activity_data(self):
-                dict('parent_user'=create_model_reference(self.parent_user))
+                dict('parent_user'=create_reference(self.parent_user))
         '''
         pass
 
@@ -63,12 +70,19 @@ class Activity(object):
         return self.user
 
     @property
+    def activity_object_attr(self):
+        '''
+        Returns the reference to the object of the activity
+        '''
+        raise NotImplementedError('%s must implement activity_object_attr property' % self.__class__.__name__)
+
+    @property
     def activity_actor_id(self):
         return self.activity_actor_attr.pk
 
     @property
     def activity_actor(self):
-        return create_model_reference(self.activity_actor_attr)
+        return create_reference(self.activity_actor_attr)
 
     @property
     def activity_verb(self):
@@ -77,7 +91,7 @@ class Activity(object):
     
     @property
     def activity_object(self):
-        return create_model_reference(self)
+        return create_reference(self.activity_object_attr)
 
     @property
     def activity_foreign_id(self):

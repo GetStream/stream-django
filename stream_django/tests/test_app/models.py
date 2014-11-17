@@ -8,5 +8,9 @@ class Pin(models.Model, Activity):
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
+    def activity_object_attr(self):
+        return self
+
+    @property
     def activity_actor_attr(self):
         return self.author

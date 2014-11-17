@@ -9,6 +9,10 @@ class Tweet(Activity, models.Model):
         return None
 
     @property
+    def activity_object_attr(self):
+        return self
+
+    @property
     def activity_actor(self):
         return self.actor
 
