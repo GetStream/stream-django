@@ -4,6 +4,7 @@ import re
 from test_app import models
 import httpretty
 from stream_django.enrich import Enrich
+from stream_django.feed_manager import feed_manager
 
 
 api_url = re.compile(r'https://getstream.io/api/*.')
@@ -12,6 +13,7 @@ api_url = re.compile(r'https://getstream.io/api/*.')
 class PinTest(TestCase):
 
     def setUp(self):
+        feed_manager.enable_model_tracking()
         self.User = get_user_model()
         self.bogus = self.User.objects.create()
         self.enricher = Enrich()
@@ -75,3 +77,9 @@ class PinTest(TestCase):
         self.assertIn('object', enriched_data[0].not_enriched_data)
         self.assertDictContainsSubset(dict(object=activity['object']), enriched_data[0].not_enriched_data)
         self.assertEqual(activity['object'], enriched_data[0]['object'])
+
+    def test_disabled_tracking(self):
+        feed_manager.disable_model_tracking()
+        pin = models.Pin.objects.create(author=self.bogus)
+        pin.save()
+        pin.delete()

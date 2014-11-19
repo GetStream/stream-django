@@ -10,6 +10,9 @@ api_url = re.compile(r'https://getstream.io/api/*.')
 
 class ManagerTestCase(unittest.TestCase):
 
+    def setUp(self):
+        feed_manager.enable_model_tracking()
+
     def test_get_user_feed(self):
         feed = feed_manager.get_user_feed(42)
         self.assertEqual(feed.id, 'user:42')
