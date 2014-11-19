@@ -12,7 +12,9 @@ from django.conf import settings
 
 def runtests():
     import django
-    django.setup()
+    # django 1.6 breaks
+    if hasattr(django, 'setup'):
+        django.setup()
     TestRunner = get_runner(settings)
     test_runner = TestRunner(verbosity=1, interactive=True)
     failures = test_runner.run_tests(['test_app'])

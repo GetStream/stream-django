@@ -1,5 +1,5 @@
+import django
 from django.conf import settings
-
 
 API_KEY = getattr(settings, 'STREAM_API_KEY', None)
 API_SECRET = getattr(settings, 'STREAM_API_SECRET', None)
@@ -15,3 +15,5 @@ NEWS_FEEDS = getattr(settings, 'STREAM_NEWS_FEEDS',
 NOTIFICATION_FEED = getattr(settings, 'STREAM_PERSONAL_FEED', 'notification')
 
 DISABLE_MODEL_TRACKING = getattr(settings, 'STREAM_DISABLE_MODEL_TRACKING', False)
+
+DJANGO_16 = django.VERSION[:2] == (1,6)
