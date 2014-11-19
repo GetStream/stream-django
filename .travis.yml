@@ -4,6 +4,7 @@ python:
 env:
   - DJANGO="django==1.7 --use-mirrors"
   - DJANGO="django==1.6 --use-mirrors"
+  - DJANGO="django==1.5 --use-mirrors"
 notifications:
   email:
     - thierryschellenbach@gmail.com

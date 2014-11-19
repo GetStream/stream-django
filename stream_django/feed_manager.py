@@ -1,5 +1,5 @@
 from stream_django.conf import FEED_MANAGER_CLASS
-from stream_django.conf import DJANGO_16
+from stream_django.conf import DJANGO_MAJOR_VERSION
 from django.db.models.signals import class_prepared
 from stream_django.utils import get_class_from_string
 
@@ -14,9 +14,9 @@ def disable_model_tracking(sender, **kwargs):
     feed_manager.disable_model_tracking()
 
 
-if DJANGO_16:
+if DJANGO_MAJOR_VERSION == 1.6:
     from django.db.models.signals import pre_syncdb
     pre_syncdb.connect(disable_model_tracking)
-else:
+elif DJANGO_MAJOR_VERSION > 1.6:
     from django.db.models.signals import pre_migrate
     pre_migrate.connect(disable_model_tracking)

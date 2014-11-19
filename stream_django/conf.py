@@ -16,4 +16,4 @@ NOTIFICATION_FEED = getattr(settings, 'STREAM_PERSONAL_FEED', 'notification')
 
 DISABLE_MODEL_TRACKING = getattr(settings, 'STREAM_DISABLE_MODEL_TRACKING', False)
 
-DJANGO_16 = django.VERSION[:2] == (1,6)
+DJANGO_MAJOR_VERSION = django.VERSION[0] + (0.1*django.VERSION[1])
