@@ -14,7 +14,7 @@ test_requirements = [
 
 setup(
     name='stream-django',
-    version='1.0.5',
+    version='1.0.6',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=[
