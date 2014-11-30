@@ -91,8 +91,8 @@ class Enrich(object):
         if hasattr(self, hook_function_name):
             return getattr(self, hook_function_name)(pks)
         qs = modelClass.objects
-        if hasattr(modelClass, 'related_models') and modelClass.related_models() is not None:
-            qs = qs.select_related(*modelClass.related_models())
+        if hasattr(modelClass, 'activity_related_models') and modelClass.activity_related_models() is not None:
+            qs = qs.select_related(*modelClass.activity_related_models())
         return qs.in_bulk(pks)
 
     def _fetch_objects(self, references):
