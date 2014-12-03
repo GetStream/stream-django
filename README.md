@@ -168,7 +168,7 @@ class Follow(models.Model, Activity):
 
     @property
     def activity_notify(self):
-        return [self.target_user.id]
+        return [feed_manager.get_notification_feed(self.target_user.id)]
 
 ```
 
