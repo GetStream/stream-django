@@ -18,7 +18,7 @@ setup(
     packages=['stream_django'],
     include_package_data=True,
     install_requires=[
-        'stream-python>=2.1.0',
+        'stream-python>=2.1.2',
         'pytz'
     ],
     tests_require=test_requirements,
