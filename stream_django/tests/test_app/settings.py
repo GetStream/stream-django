@@ -1,5 +1,7 @@
 STREAM_API_KEY = 'test_key'
 STREAM_API_SECRET = '123'
+STREAM_LOCATION = 'us-east'
+
 SECRET_KEY = 'insecure'
 
 AUTH_USER_MODEL = 'auth.User'
