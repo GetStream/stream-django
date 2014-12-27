@@ -1,7 +1,7 @@
-from activity import Activity
 from django.db.models.signals import post_delete, post_save
-from stream_django.client import stream_client
 from stream_django import conf
+from stream_django.activity import Activity
+from stream_django.client import stream_client
 
 
 EVERY_MODEL = 'EVERY_MODEL'

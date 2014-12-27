@@ -5,9 +5,13 @@ from setuptools import setup
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
+requirements = [
+    'django>=1.5',
+    'stream-python>=2.1.2',
+    'pytz'
+]
 
 test_requirements = [
-    'django>=1.5',
     'httpretty',
     'coverage'
 ]
@@ -17,12 +21,8 @@ setup(
     version='1.1.1',
     packages=['stream_django'],
     include_package_data=True,
-    install_requires=[
-        'stream-python>=2.1.2',
-        'pytz'
-    ],
+    install_requires=requirements,
     tests_require=test_requirements,
-    setup_requires=test_requirements,
     test_suite='runtests.runtests',
     license='BSD License',
     description='A Django app to build activity, news and notification feeds.',
