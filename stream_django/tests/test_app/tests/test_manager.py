@@ -38,7 +38,7 @@ class ManagerTestCase(unittest.TestCase):
               content_type='application/json')
         feed_manager.follow_user(1, 2)
         last_req = httpretty.last_request()
-        self.assertTrue(last_req.path.split('?')[0].endswith('aggregated/1/follows/'))
+        self.assertTrue(last_req.path.split('?')[0].endswith('1/follows/'))
 
     @httpretty.activate
     def test_unfollow_user(self):
@@ -48,7 +48,7 @@ class ManagerTestCase(unittest.TestCase):
         feed_manager.unfollow_user(1, 2)
         last_req = httpretty.last_request()
         self.assertEqual(last_req.method, 'DELETE')
-        self.assertTrue(last_req.path.split('?')[0].endswith('aggregated/1/follows/user:2/'))
+        self.assertTrue(last_req.path.split('?')[0].endswith('1/follows/user:2/'))
 
     def test_get_feed(self):
         feed = feed_manager.get_feed('flat', 42)
