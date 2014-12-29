@@ -4,18 +4,18 @@ python:
   - 3.3
   - 3.4
 env:
-  - DJANGO="django==1.7 --use-mirrors"
-  - DJANGO="django==1.6 --use-mirrors"
-  - DJANGO="django==1.5 --use-mirrors"
+  - DJANGO="django>=1.7.0,<1.8.0"
+  - DJANGO="django>=1.6.0,<1.7.0"
+  - DJANGO="django>=1.5.0,<1.6.0"
 notifications:
   email:
     - thierryschellenbach@gmail.com
     - tbarbugli@gmail.com
 install:
-  - pip install pep8==1.5.7 --use-mirrors
-  - pip install python-coveralls --use-mirrors
-  - pip install -e .
-  - pip install $DJANGO
+  - travis_retry pip install pep8==1.5.7
+  - travis_retry pip install python-coveralls
+  - travis_retry pip install -e .
+  - travis_retry pip install $DJANGO
 script:
   - coverage run --source=stream_django setup.py test
 after_script:
