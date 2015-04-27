@@ -11,7 +11,7 @@ except ImportError:
 
 
 def combine_dicts(a, b, op=operator.add):
-    return dict(a.items() + b.items() +
+    return dict(list(a.items()) + list(b.items()) +
         [(k, op(a[k], b[k])) for k in set(b) & set(a)])
 
 
