@@ -1,8 +1,13 @@
 import collections
 from collections import defaultdict
-from django.db.models.loading import get_model
 import operator
 import itertools
+
+try:
+    from django.apps import apps
+    get_model = apps.get_model
+except ImportError:
+    from django.db.models.loading import get_model
 
 
 def combine_dicts(a, b, op=operator.add):
