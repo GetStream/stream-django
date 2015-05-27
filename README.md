@@ -126,6 +126,8 @@ The three feeds are divided in three categories.
 #####User feed:
 The user feed stores all activities for a user. Think of it as your personal Facebook page. You can easily get this feed from the manager.  
 ```python
+from stream_django.feed_manager import feed_manager
+
 feed_manager.get_user_feed(user_id)
 ```  
 #####News feeds:
