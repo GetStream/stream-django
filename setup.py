@@ -7,7 +7,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 
 requirements = [
     'django>=1.5',
-    'stream-python>=2.3.0',
+    'stream-python>=2.3.1',
     'pytz'
 ]
 
@@ -18,7 +18,7 @@ test_requirements = [
 
 setup(
     name='stream-django',
-    version='1.2.3',
+    version='1.2.4',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=requirements,
