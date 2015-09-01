@@ -253,6 +253,9 @@ Your stream site api key secret. Default ```''```
 **STREAM_LOCATION**
 The location API endpoint the client will connect to. Eg: ```STREAM_LOCATION='us-east'```
 
+**STREAM_TIMEOUT**
+The connection timeout (in seconds) for the API client.  Default ```6.0```
+
 **STREAM_FEED_MANAGER_CLASS**
 The path to the feed manager class. Default ```'stream_django.managers.FeedManager'```
 
