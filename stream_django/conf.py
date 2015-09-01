@@ -4,6 +4,7 @@ from django.conf import settings
 API_KEY = getattr(settings, 'STREAM_API_KEY', None)
 API_SECRET = getattr(settings, 'STREAM_API_SECRET', None)
 LOCATION = getattr(settings, 'STREAM_LOCATION', None)
+TIMEOUT = getattr(settings, 'STREAM_TIMEOUT', 3.0)
 
 FEED_MANAGER_CLASS = getattr(settings, 'STREAM_FEED_MANAGER_CLASS',
     'stream_django.managers.FeedManager'
