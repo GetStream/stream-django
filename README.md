@@ -231,7 +231,7 @@ For example activity/tweet.html will be used to render an normal activity with v
 and activity/aggregated/like.html for an aggregated activity with verb like
 
 ```
-{{ aggregated.actor_count }} user{{ aggregated.actor_count|pluralize }} liked {% render_activity aggregated.activities.0 %}
+{{ activity.actor_count }} user{{ activity.actor_count|pluralize }} liked {% render_activity activity.activities.0 %}
 ```
 
 If you need to support different kind of templates for the same activity, you case send a third parameter to change the template selection.  
