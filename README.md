@@ -21,8 +21,8 @@ You can build:
 
 You can check out our example apps built using this library (you can deploy them directly to Heroku with 1 click):
 
-* [https://github.com/GetStream/Stream-Example-Py](A pinterest clone)
-* [https://github.com/GetStream/django_twitter](A Twitter clone app)
+* [Pinterest-like example app](https://github.com/GetStream/Stream-Example-Py)
+* [Twitter for scientists example app](https://github.com/GetStream/django_twitter)
 
 
 ###Table of Contents
