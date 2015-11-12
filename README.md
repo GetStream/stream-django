@@ -17,9 +17,13 @@ You can build:
 * Facebook style newsfeeds
 * A notification system
 
-### Demo
+### Example apps
 
-You can check out our example app built using this library on [http://exampledjango.getstream.io](http://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
+You can check out our example apps built using this library (you can deploy them directly to Heroku with 1 click):
+
+* [https://github.com/GetStream/Stream-Example-Py](A pinterest clone)
+* [https://github.com/GetStream/django_twitter](A Twitter clone app)
+
 
 ###Table of Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
