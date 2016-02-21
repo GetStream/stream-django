@@ -42,6 +42,10 @@ class EnrichedActivity(collections.MutableMapping):
     def __keytransform__(self, key):
         return key
 
+    def __repr__(self):
+        return "EnrichedActivity(activity_data=%s, not_enriched_data=%s)" % (str(self.activity_data),
+                                                                             str(self.not_enriched_data))
+
     def track_not_enriched_field(self, field, value):
         self.not_enriched_data[field] = value
 
@@ -76,7 +80,7 @@ class Enrich(object):
         return [EnrichedActivity(a) for a in activities]
 
     def is_ref(self, activity, field):
-        return (len(activity.get(field, '').split(':')) == 2)
+        return len(activity[field].split(':')) == 2 if activity.get(field) else False
 
     def _collect_references(self, activities, fields):
         model_references = defaultdict(list)
