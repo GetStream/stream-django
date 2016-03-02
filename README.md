@@ -57,6 +57,10 @@ INSTALLED_APPS = [
     ...
     'stream_django'
 ]
+
+STREAM_API_KEY = 'my_api_key'
+STREAM_API_SECRET = 'my_api_secret_key'
+
 ```
 
 Login with Github on getstream.io and add
