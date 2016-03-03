@@ -17,9 +17,13 @@ You can build:
 * Facebook style newsfeeds
 * A notification system
 
-### Demo
+### Example apps
 
-You can check out our example app built using this library on [http://exampledjango.getstream.io](http://exampledjango.getstream.io) the code of the example app is available on Github [https://github.com/GetStream/Stream-Example-Py](https://github.com/GetStream/Stream-Example-Py)
+You can check out our example apps built using this library (you can deploy them directly to Heroku with 1 click):
+
+* [Pinterest-like example app](https://github.com/GetStream/Stream-Example-Py)
+* [Twitter for scientists example app](https://github.com/GetStream/django_twitter)
+
 
 ###Table of Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -53,6 +57,10 @@ INSTALLED_APPS = [
     ...
     'stream_django'
 ]
+
+STREAM_API_KEY = 'my_api_key'
+STREAM_API_SECRET = 'my_api_secret_key'
+
 ```
 
 Login with Github on getstream.io and add
