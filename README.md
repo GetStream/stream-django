@@ -234,7 +234,7 @@ and activity/aggregated/like.html for an aggregated activity with verb like
 {{ activity.actor_count }} user{{ activity.actor_count|pluralize }} liked {% render_activity activity.activities.0 %}
 ```
 
-If you need to support different kind of templates for the same activity, you case send a third parameter to change the template selection.  
+If you need to support different kind of templates for the same activity, you can send a third parameter to change the template selection.  
 
 The example below will use the template activity/[aggregated]/homepage_%(verb)s.html
 ```
