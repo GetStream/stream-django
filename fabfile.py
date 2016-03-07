@@ -29,12 +29,6 @@ def get_version(type, _setup):
 	return version, increase_version(type, version)
 
 def version(type):
-	unstaged_changes = local('git status --porcelain')
-
-	if unstaged_changes != '':
-		print 'Clean your git working directory'
-		return
-
 	old_version, version = get_version(type)
 
 	old_string = "version='%s'" % '.'.join([ str(n) for n in old_version ])
@@ -53,17 +47,9 @@ def version(type):
 
 	local('git add setup.py')
 	local('git commit -m "new version"')
-	local('git tag v%s' % '.'.join([ str(n) for n in version ])
+	local('git tag v%s' % '.'.join([ str(n) for n in version ]))
 
 def publish():
-	unstaged_changes = local('git status --porcelain')
-
-	if unstaged_changes != '':
-		print 'Clean your git working directory'
-		return
-
-	version, _ = get_version('patch')
-
 	local('git push origin --tags')
 
 	local('python setup.py sdist')
