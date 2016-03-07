@@ -46,12 +46,10 @@ def version(type):
 		fout.close()
 
 	local('git add setup.py')
-	local('git commit -m "new version"')
+	local('git commit -m "release version"')
 	local('git tag v%s' % '.'.join([ str(n) for n in version ]))
 
 def publish():
 	local('git push origin --tags')
 
-	local('python setup.py sdist')
-	local('python setup.py bdist_wheel')
-	local('python setup.py upload')
+	local('python setup.py sdist bdist_wheel upload')
