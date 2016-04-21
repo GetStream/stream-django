@@ -2,19 +2,17 @@ language: python
 sudo: false
 python:
   - 2.7
-  - 3.3
   - 3.4
+  - 3.5
 env:
-  - DJANGO="django>=1.8.0,<1.9.0"
-  - DJANGO="django>=1.7.0,<1.8.0"
-  - DJANGO="django>=1.6.0,<1.7.0"
-  - DJANGO="django>=1.5.0,<1.6.0"
+  - DJANGO="django>=1.9.3,<1.10.0"
+  - DJANGO="django>=1.8.10,<1.9.0"
 notifications:
   email:
     - thierryschellenbach@gmail.com
     - tbarbugli@gmail.com
 install:
-  - travis_retry pip install pep8==1.5.7
+  - travis_retry pip install pep8==1.7.0
   - travis_retry pip install python-coveralls
   - travis_retry pip install -e .
   - travis_retry pip install $DJANGO
