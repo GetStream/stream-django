@@ -74,7 +74,7 @@ class Activity(object):
         '''
         Returns the reference to the object of the activity
         '''
-        raise NotImplementedError('%s must implement activity_object_attr property' % self.__class__.__name__)
+        return self
 
     @property
     def activity_actor_id(self):
