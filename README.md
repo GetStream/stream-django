@@ -293,7 +293,7 @@ Sometimes you'll want to customize how enrichment works. The documentation will 
 
 If you store references to model instances in the activity extra_data you can use the Enrich class to take care of it for you
 
-```
+```python
 from stream_django.activity import create_model_reference
 
 class Tweet(models.Model, Activity):
@@ -301,7 +301,7 @@ class Tweet(models.Model, Activity):
     @property
     def extra_activity_data(self):
         ref = create_model_reference(self.parent_tweet)
-        return {'parent_tweet': self.parent_tweet }
+        return {'parent_tweet': ref }
 
 
 # instruct the enricher to enrich actor, object and parent_tweet fields
@@ -317,7 +317,7 @@ The enrich class that comes with the packages tries to minimise the amount of da
 
 To change the retrival for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
 
-```
+```python
 class MyEnrich(Enrich):
     '''
     Overwrites how model instances are fetched from the database
@@ -345,7 +345,7 @@ class AnotherEnrich(Enrich):
 
 You will commonly access related objects such as activity['object'].user. To prevent your newsfeed to run N queries you can instruct the manager to load related objects. The manager will use Django's select_related functionality. (https://docs.djangoproject.com/en/dev/ref/models/querysets/#select-related).
 
-```
+```python
 class Tweet(models.Model, Activity):
 
     @classmethod
@@ -359,7 +359,7 @@ When needed you can also use the low level Python API directly.
 The full explanation can be found in the [getstream.io documentation](https://getstream.io/docs/).
 
 
-```
+```python
 from stream_django.client import stream_client
 
 special_feed = stream_client.feed('special:42')
