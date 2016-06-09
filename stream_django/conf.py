@@ -13,7 +13,7 @@ FEED_MANAGER_CLASS = getattr(settings, 'STREAM_FEED_MANAGER_CLASS',
 
 USER_FEED = getattr(settings, 'STREAM_USER_FEED', 'user')
 NEWS_FEEDS = getattr(settings, 'STREAM_NEWS_FEEDS',
-    {'flat':'flat', 'aggregated':'aggregated'}
+    {'timeline':'timeline', 'timeline_aggregated':'timeline_aggregated'}
 )
 NOTIFICATION_FEED = getattr(settings, 'STREAM_PERSONAL_FEED', 'notification')
 

@@ -51,12 +51,12 @@ class ManagerTestCase(unittest.TestCase):
         self.assertTrue(last_req.path.split('?')[0].endswith('1/follows/user:2/'))
 
     def test_get_feed(self):
-        feed = feed_manager.get_feed('flat', 42)
-        self.assertEqual(feed.id, 'flat:42')
+        feed = feed_manager.get_feed('timeline', 42)
+        self.assertEqual(feed.id, 'timeline:42')
 
     def test_get_news_feeds(self):
         feeds = feed_manager.get_news_feeds(42)
-        self.assertIn('flat', feeds)
-        self.assertIn('aggregated', feeds)
-        self.assertEqual(feeds['flat'].id, 'flat:42')
-        self.assertEqual(feeds['aggregated'].id, 'aggregated:42')
+        self.assertIn('timeline', feeds)
+        self.assertIn('timeline_aggregated', feeds)
+        self.assertEqual(feeds['timeline'].id, 'timeline:42')
+        self.assertEqual(feeds['timeline_aggregated'].id, 'timeline_aggregated:42')

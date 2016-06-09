@@ -44,6 +44,15 @@ You can check out our example apps built using this library (you can deploy them
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+###Update from <1.3
+
+Stream default names for feeds changed from flat and aggregated to timeline and timeline_aggregated. The default configuration of stream_django changed
+to match the new names. If you did you not override the `STREAM_NEWS_FEEDS` settings and want to upgrade to 1.3 or later, make sure that you add this to your Django setting:
+
+```python
+STREAM_NEWS_FEEDS = {'flat':'flat', 'aggregated':'aggregated'}
+```
+
 ###Installation
 
 Install stream_django package with pip:
@@ -139,12 +148,12 @@ from stream_django.feed_manager import feed_manager
 feed_manager.get_user_feed(user_id)
 ```  
 #####News feeds:
-The news feeds store the activities from the people you follow. 
-There is both a flat newsfeed (similar to twitter) and an aggregated newsfeed (like facebook).
+The news feeds (or timelines) store the activities from the people you follow. 
+There is both a simple timeline newsfeed (similar to twitter) and an aggregated version (like facebook).
 
 ```python
-flat_feed = feed_manager.get_news_feed(user_id)['flat'] 
-aggregated_feed = feed_manager.get_news_feed(user_id)['aggregated'] 
+timeline = feed_manager.get_news_feed(user_id)['timeline'] 
+timeline_aggregated = feed_manager.get_news_feed(user_id)['timeline_aggregated'] 
 
 ```
 #####Notification feed:
@@ -184,7 +193,7 @@ class Follow(models.Model, Activity):
 
 
 ####Follow a feed
-The create the newsfeeds you need to notify the system about follow relationships. The manager comes with APIs to let a user's news feeds follow another user's feed. This code lets the current user's flat and aggregated feeds follow the target_user's personal feed.
+The create the newsfeeds you need to notify the system about follow relationships. The manager comes with APIs to let a user's news feeds follow another user's feed. This code lets the current user's timeline and timeline_aggregated feeds follow the target_user's personal feed.
 
 ```
 feed_manager.follow_user(request.user.id, target_user)
@@ -207,7 +216,7 @@ This is far from ready for usage in your template. We call the process of loadin
 from stream_django.enrich import Enrich
 
 enricher = Enrich()
-feed = feed_manager.get_feed('flat', request.user.id)
+feed = feed_manager.get_feed('timeline', request.user.id)
 activities = feed.get(limit=25)['results']
 enriched_activities = enricher.enrich_activities(activities)
 ``` 
@@ -271,7 +280,7 @@ The path to the feed manager class. Default ```'stream_django.managers.FeedManag
 The name of the feed (as it is configured in your GetStream.io Dasboard) where activities are stored. Default ```'user'```
 
 **STREAM_NEWS_FEEDS**
-The name of the news feed (as they are configured in your GetStream.io Dasboard) where activities from followed feeds are stored. Default ```{'flat':'flat', 'aggregated':'aggregated'}```
+The name of the news feed (as they are configured in your GetStream.io Dasboard) where activities from followed feeds are stored. Default ```{'timeline':'timeline', 'timeline_aggregated':'timeline_aggregated'}```
 
 **STREAM_NOTIFICATION_FEED**
 The name of the feed (as it is configured in your GetStream.io Dasboard) where activity notifications are stored. Default ```'notification'```
@@ -306,7 +315,7 @@ class Tweet(models.Model, Activity):
 
 # instruct the enricher to enrich actor, object and parent_tweet fields
 enricher = Enrich(fields=['actor', 'object', 'parent_tweet'])
-feed = feed_manager.get_feed('flat', request.user.id)
+feed = feed_manager.get_feed('timeline', request.user.id)
 activities = feed.get(limit=25)['results']
 enriched_activities = enricher.enrich_activities(activities)
 ```
@@ -363,6 +372,6 @@ The full explanation can be found in the [getstream.io documentation](https://ge
 from stream_django.client import stream_client
 
 special_feed = stream_client.feed('special:42')
-special_feed.follow('flat:60')
+special_feed.follow('timeline:60')
 
 ```
