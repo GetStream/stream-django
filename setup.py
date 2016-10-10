@@ -11,10 +11,9 @@ requirements = [
     'pytz'
 ]
 
-test_requirements = [
-    'httpretty',
-    'coverage'
-]
+extras_require = {
+    'test': ['httpretty', 'coverage'],
+}
 
 setup(
     name='stream-django',
@@ -22,7 +21,8 @@ setup(
     packages=['stream_django'],
     include_package_data=True,
     install_requires=requirements,
-    tests_require=test_requirements,
+    extras_require=extras_require,
+    tests_require=['stream_django[test]'],
     test_suite='runtests.runtests',
     license='BSD License',
     description='A Django app to build activity, news and notification feeds.',
