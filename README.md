@@ -324,7 +324,7 @@ enriched_activities = enricher.enrich_activities(activities)
 
 The enrich class that comes with the packages tries to minimise the amount of database queries. The models are grouped by their class and then retrieved with a pk__in query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
 
-To change the retrival for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
+To change the retrieval for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
 
 ```python
 class MyEnrich(Enrich):
