@@ -152,8 +152,8 @@ The news feeds (or timelines) store the activities from the people you follow.
 There is both a simple timeline newsfeed (similar to twitter) and an aggregated version (like facebook).
 
 ```python
-timeline = feed_manager.get_news_feed(user_id)['timeline'] 
-timeline_aggregated = feed_manager.get_news_feed(user_id)['timeline_aggregated'] 
+timeline = feed_manager.get_news_feeds(user_id)['timeline'] 
+timeline_aggregated = feed_manager.get_news_feeds(user_id)['timeline_aggregated'] 
 
 ```
 #####Notification feed:
