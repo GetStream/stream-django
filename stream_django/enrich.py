@@ -119,7 +119,7 @@ class Enrich(object):
                 continue
             f_ct, f_id = activity[field].split(':')
             model = get_model(*f_ct.split('.'))
-            f_id = model._meta.get_field('id').to_python(f_id)
+            f_id = model._meta.pk.to_python(f_id)
 
             instance = objects[f_ct].get(f_id)
             if instance is None:
