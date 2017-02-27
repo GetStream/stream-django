@@ -2,6 +2,7 @@ import collections
 from collections import defaultdict
 import operator
 import itertools
+import uuid
 
 try:
     from django.apps import apps
@@ -122,7 +123,10 @@ class Enrich(object):
             try:
                 f_id = int(f_id)
             except ValueError:
-                pass
+                try:
+                    f_id = uuid.UUID(f_id)
+                except ValueError:
+                    pass
 
             instance = objects[f_ct].get(f_id)
             if instance is None:
