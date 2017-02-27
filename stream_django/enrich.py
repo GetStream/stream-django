@@ -2,7 +2,6 @@ import collections
 from collections import defaultdict
 import operator
 import itertools
-import uuid
 
 try:
     from django.apps import apps
@@ -119,14 +118,8 @@ class Enrich(object):
             if not self.is_ref(activity, field):
                 continue
             f_ct, f_id = activity[field].split(':')
-
-            try:
-                f_id = int(f_id)
-            except ValueError:
-                try:
-                    f_id = uuid.UUID(f_id)
-                except ValueError:
-                    pass
+            model = get_model(*f_ct.split('.'))
+            f_id = model._meta.get_field('id').to_python(f_id)
 
             instance = objects[f_ct].get(f_id)
             if instance is None:
