@@ -118,7 +118,10 @@ class Enrich(object):
             if not self.is_ref(activity, field):
                 continue
             f_ct, f_id = activity[field].split(':')
-            instance = objects[f_ct].get(int(f_id))
+            model = get_model(*f_ct.split('.'))
+            f_id = model._meta.pk.to_python(f_id)
+
+            instance = objects[f_ct].get(f_id)
             if instance is None:
                 activity.track_not_enriched_field(field, activity[field])
             else:
