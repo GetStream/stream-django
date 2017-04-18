@@ -1,5 +1,6 @@
+import django
 from django import template
-from django.template import loader
+from django.template import Context, loader
 from stream_django.exceptions import MissingDataException
 import logging
 
@@ -41,6 +42,10 @@ def render_activity(context, activity, template_prefix='', missing_data_policy=L
 
     tmpl = loader.get_template(template_name)
     context['activity'] = activity
+
+    if django.get_version() >= 1.11:
+        context = Context(context)
+
     return tmpl.render(context)
 
 
