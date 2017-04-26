@@ -1,7 +1,11 @@
 ## Stream Django
 [![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django) [![Coverage Status](https://coveralls.io/repos/github/GetStream/stream-django/badge.svg?branch=master)](https://coveralls.io/github/GetStream/stream-django?branch=master) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
 
-This package helps you create activity streams & newsfeeds with Django and [GetStream.io](https://getstream.io).
+[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/).
+
+You can sign up for a Stream account at https://getstream.io/get_started.
+
+Note there is also a lower level [Python - Stream integration](https://github.com/getstream/stream-python) library which is suitable for all Python applications.
 
 ### Build activity streams & news feeds
 
@@ -23,7 +27,6 @@ You can check out our example apps built using this library (you can deploy them
 
 * [Pinterest-like example app](https://github.com/GetStream/Stream-Example-Py)
 * [Twitter for scientists example app](https://github.com/GetStream/django_twitter)
-
 
 ### Table of Contents
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
@@ -84,7 +87,7 @@ from stream_django.activity import Activity
 
 class Tweet(models.Model, Activity):
     ...
-    
+
 class Like(models.Model, Activity):
     ...
 ```
@@ -96,8 +99,8 @@ Every time a Tweet is created it will be added to the user's feed. Users which f
 Models are stored in feeds as activities. An activity is composed of at least the following fields: **actor**, **verb**, **object**, **time**. You can also add more custom data if needed.
 The Activity mixin will try to set things up automatically:
 
-**object** is a reference to the model instance  
-**actor** is a reference to the user attribute of the instance  
+**object** is a reference to the model instance
+**actor** is a reference to the user attribute of the instance
 **verb** is a string representation of the class name
 
 By default the actor field will look for an attribute called user or actor and a field called created_at to track creation time.
@@ -133,7 +136,7 @@ class Tweet(models.Model, Activity):
 
 ### Feed manager
 
-Django Stream comes with a feed_manager class that helps with all common feed operations.  
+Django Stream comes with a feed_manager class that helps with all common feed operations.
 
 #### Feeds bundled with feed_manager
 
@@ -141,27 +144,27 @@ To get you started the manager has 4 feeds pre configured. You can add more feed
 The three feeds are divided in three categories.
 
 ##### User feed:
-The user feed stores all activities for a user. Think of it as your personal Facebook page. You can easily get this feed from the manager.  
+The user feed stores all activities for a user. Think of it as your personal Facebook page. You can easily get this feed from the manager.
 ```python
 from stream_django.feed_manager import feed_manager
 
 feed_manager.get_user_feed(user_id)
-```  
+```
 ##### News feeds:
-The news feeds (or timelines) store the activities from the people you follow. 
+The news feeds (or timelines) store the activities from the people you follow.
 There is both a simple timeline newsfeed (similar to twitter) and an aggregated version (like facebook).
 
 ```python
-timeline = feed_manager.get_news_feeds(user_id)['timeline'] 
-timeline_aggregated = feed_manager.get_news_feeds(user_id)['timeline_aggregated'] 
+timeline = feed_manager.get_news_feeds(user_id)['timeline']
+timeline_aggregated = feed_manager.get_news_feeds(user_id)['timeline_aggregated']
 
 ```
 ##### Notification feed:
-The notification feed can be used to build notification functionality. 
+The notification feed can be used to build notification functionality.
 
 <p align="center">
   <img src="http://feedly.readthedocs.org/en/latest/_images/fb_notification_system.png" alt="Notification feed" title="Notification feed"/>
-  
+
 Below we show an example of how you can read the notification feed.
 ```python
 notification_feed = feed_manager.get_notification_feed(user_id)
@@ -219,7 +222,7 @@ enricher = Enrich()
 feed = feed_manager.get_feed('timeline', request.user.id)
 activities = feed.get(limit=25)['results']
 enriched_activities = enricher.enrich_activities(activities)
-``` 
+```
 
 
 
@@ -251,7 +254,7 @@ and activity/aggregated/like.html for an aggregated activity with verb like
 {{ activity.actor_count }} user{{ activity.actor_count|pluralize }} liked {% render_activity activity.activities.0 %}
 ```
 
-If you need to support different kind of templates for the same activity, you can send a third parameter to change the template selection.  
+If you need to support different kind of templates for the same activity, you can send a third parameter to change the template selection.
 
 The example below will use the template activity/[aggregated]/homepage_%(verb)s.html
 ```
@@ -363,10 +366,9 @@ class Tweet(models.Model, Activity):
 
 ```
 
-### Low level APIs access
-When needed you can also use the low level Python API directly.
-The full explanation can be found in the [getstream.io documentation](https://getstream.io/docs/).
+### Full documentation and Low level APIs access
 
+When needed you can also use the [low level Python API](https://github.com/getstream/stream-python) directly. Documentation is available at the [Stream website](https://getstream.io/docs/?language=python).
 
 ```python
 from stream_django.client import stream_client
@@ -375,3 +377,9 @@ special_feed = stream_client.feed('special:42')
 special_feed.follow('timeline:60')
 
 ```
+
+### Copyright and License Information
+
+Copyright (c) 2014-2017 Stream.io Inc, and individual contributors. All rights reserved.
+
+See the file "LICENSE" for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES.
