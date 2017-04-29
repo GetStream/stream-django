@@ -43,8 +43,10 @@ def render_activity(context, activity, template_prefix='', missing_data_policy=L
     tmpl = loader.get_template(template_name)
     context['activity'] = activity
 
-    if django.get_version() < 1.11:
+    if float(django.get_version()) < 1.11:
         context = Context(context)
+    elif isinstance(context, Context):
+        context = context.flatten()
 
     return tmpl.render(context)
 
