@@ -52,7 +52,7 @@ class TemplateTagTest(TestCase):
         output = self.create_template(missing_data_policy='ignore').render(ctx)
         self.assertEqual(output.strip(), '')
 
-    def test_render_template(self):
+    def test_render_template_failure(self):
         activity = EnrichedActivity({'verb': 'thisone'})
         ctx = Context({'activities': [activity]})
         with self.assertRaisesMessage(TemplateDoesNotExist, 'activity/thisone.html'):
@@ -64,3 +64,8 @@ class TemplateTagTest(TestCase):
 
         with self.assertRaisesMessage(TemplateDoesNotExist, 'activity/prependto_thisone.html'):
             self.create_template('prependto').render(ctx)
+
+    def test_render_template(self):
+        activity = EnrichedActivity({'verb': 'tweet'})
+        ctx = Context({'activities': [activity]})
+        self.create_template().render(ctx)
