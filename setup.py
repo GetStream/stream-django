@@ -24,7 +24,7 @@ setup(
     extras_require=extras_require,
     tests_require=['stream_django[test]'],
     test_suite='runtests.runtests',
-    license='BSD License',
+    license='BSD 3-clause License',
     description='A Django app to build activity, news and notification feeds.',
     long_description=README,
     url='https://getstream.io/',
