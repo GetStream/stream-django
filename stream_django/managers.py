@@ -57,25 +57,33 @@ class FeedManager(object):
             feeds[feed] = self.get_feed(feed, user_id)
         return feeds
 
+    def add_activity_to_feed(self, instance):
+        activity = instance.create_activity()
+        feed_type = self.get_actor_feed(instance)
+        feed = self.get_feed(feed_type, instance.activity_actor_id)
+        result = feed.add_activity(activity)
+        return result
+
+    def remove_activity_from_feed(self, instance):
+        feed_type = self.get_actor_feed(instance)
+        feed = self.get_feed(feed_type, instance.activity_actor_id)
+        result = feed.remove_activity(
+            foreign_id=instance.activity_foreign_id)
+        return result
+
     def should_track(self, model):
-        disabled_all = conf.DISABLE_MODEL_TRACKING or self._disabledModelTracking.get(EVERY_MODEL)
+        disabled_all = conf.DISABLE_MODEL_TRACKING or self._disabledModelTracking.get(
+            EVERY_MODEL)
         model_disabled = self._disabledModelTracking.get(model)
         return (not disabled_all and not model_disabled)
 
     def activity_created(self, sender, instance, created, raw, **kwargs):
         if self.should_track(sender) and created and not raw:
-            activity = instance.create_activity()
-            feed_type = self.get_actor_feed(instance)
-            feed = self.get_feed(feed_type, instance.activity_actor_id)
-            result = feed.add_activity(activity)
-            return result
+            return self.add_activity_to_feed(instance)
 
     def activity_delete(self, sender, instance, **kwargs):
         if self.should_track(sender):
-            feed_type = self.get_actor_feed(instance)
-            feed = self.get_feed(feed_type, instance.activity_actor_id)
-            result = feed.remove_activity(foreign_id=instance.activity_foreign_id)
-            return result
+            return self.remove_activity_from_feed(instance)
 
     def bind_model(self, sender, **kwargs):
         if issubclass(sender, (Activity, )):
