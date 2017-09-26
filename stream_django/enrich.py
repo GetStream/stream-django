@@ -125,4 +125,7 @@ class Enrich(object):
             if instance is None:
                 activity.track_not_enriched_field(field, activity[field])
             else:
-                activity[field] = instance
+                activity[field] = self.enrich_instance(instance)
+
+    def enrich_instance(self, instance):
+        return instance
