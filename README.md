@@ -72,11 +72,12 @@ INSTALLED_APPS = [
 
 STREAM_API_KEY = 'my_api_key'
 STREAM_API_SECRET = 'my_api_secret_key'
+STREAM_LOCATION = 'my_location' # optional
 
 ```
 
 Login with Github on getstream.io and add
-```STREAM_API_KEY``` and ```STREAM_API_SECRET``` to your Django settings module (you can find them in the dashboard).
+```STREAM_API_KEY```, ```STREAM_API_SECRET``` and ```STREAM_LOCATION``` (optional) to your Django settings module (you can find them in the dashboard).
 
 ### Model integration
 
