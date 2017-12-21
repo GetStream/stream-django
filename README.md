@@ -110,7 +110,7 @@ Below shows an example how to set things up if your user field is called author.
 ```python
 class Tweet(models.Model, Activity):
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     @property
     def activity_actor_attr(self):
