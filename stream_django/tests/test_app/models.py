@@ -4,7 +4,7 @@ from stream_django.activity import Activity
 
 
 class Pin(models.Model, Activity):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
