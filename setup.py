@@ -23,7 +23,7 @@ extras_require = {
 
 setup(
     name='stream-django',
-    version='1.3.3',
+    version='1.4.0',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=requirements,
