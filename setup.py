@@ -1,13 +1,19 @@
 import os
+import sys
 from setuptools import setup
 
 
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
+if sys.version_info < (3, 0, 0):
+    django = 'django>=1.5,<2.0'
+else:
+    django = 'django>=1.5,<2.1.0'
+
 requirements = [
-    'django>=1.5,<2.0',
-    'stream-python>=2.8.0',
+    django,
+    'stream-python>=2.8.1',
     'pytz'
 ]
 

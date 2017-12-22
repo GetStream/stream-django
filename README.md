@@ -1,7 +1,7 @@
 ## Stream Django
 [![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django) [![Coverage Status](https://coveralls.io/repos/github/GetStream/stream-django/badge.svg?branch=master)](https://coveralls.io/github/GetStream/stream-django?branch=master) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
 
-[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.5 up to and including 1.11 and Python 2.7 and 3.4+.
+[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.5 up to and including 2.0 using Python 2.7 and 3.4, 3.5 and 3.6.
 
 You can sign up for a Stream account at https://getstream.io/get_started.
 
@@ -46,15 +46,6 @@ You can check out our example apps built using this library (you can deploy them
 - [Low level APIs access](#low-level-apis-access)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-### Update from <1.3
-
-Stream default names for feeds changed from flat and aggregated to timeline and timeline_aggregated. The default configuration of stream_django changed
-to match the new names. If you did you not override the `STREAM_NEWS_FEEDS` settings and want to upgrade to 1.3 or later, make sure that you add this to your Django setting:
-
-```python
-STREAM_NEWS_FEEDS = {'flat':'flat', 'aggregated':'aggregated'}
-```
 
 ### Installation
 
@@ -110,7 +101,7 @@ Below shows an example how to set things up if your user field is called author.
 ```python
 class Tweet(models.Model, Activity):
     created_at = models.DateTimeField(auto_now_add=True)
-    author = models.ForeignKey(settings.AUTH_USER_MODEL)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     @property
     def activity_actor_attr(self):

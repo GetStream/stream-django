@@ -33,10 +33,6 @@ matrix:
     - python: 3.6
       env: DJANGO="django==1.5.12"
 
-notifications:
-  email:
-    - thierryschellenbach@gmail.com
-    - tbarbugli@gmail.com
 install:
   - travis_retry pip install pep8==1.7.0
   - travis_retry pip install python-coveralls
