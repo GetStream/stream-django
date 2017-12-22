@@ -40,8 +40,8 @@ notifications:
 install:
   - travis_retry pip install pep8==1.7.0
   - travis_retry pip install python-coveralls
-  - travis_retry pip install -e .
   - travis_retry pip install $DJANGO --upgrade
+  - travis_retry pip install -e .
 script:
   - coverage run --source=stream_django setup.py test
 after_script:
