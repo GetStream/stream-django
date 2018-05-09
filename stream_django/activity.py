@@ -53,7 +53,7 @@ class Activity(object):
     def extra_activity_data(self):
         '''
         Use this hook to store extra data in activities.
-        If you need to store references to model instances you should use create_model_refeactivity_rence
+        If you need to store references to model instances you should use create_model_reference
 
         eg:
             @property
