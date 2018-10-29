@@ -5,7 +5,7 @@ from stream_django.tests import Tweet
 import unittest
 
 
-api_url = re.compile(r'stream-io-api.com/api/*.')
+api_url = re.compile(r'(us-east-api.)?stream-io-api.com/*.')
 
 
 class ManagerTestCase(unittest.TestCase):

@@ -18,7 +18,7 @@ requirements = [
 ]
 
 extras_require = {
-    'test': ['httpretty==0.9.4', 'coverage'],
+    'test': ['httpretty==0.9.5', 'coverage'],
 }
 
 setup(
