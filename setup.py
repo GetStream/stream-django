@@ -7,9 +7,9 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
 if sys.version_info < (3, 0, 0):
-    django = 'django>=1.5,<2.0'
+    django = 'django>=1.8.10,<2.0'
 else:
-    django = 'django>=1.5,<2.2'
+    django = 'django>=1.8.10,<2.2'
 
 requirements = [
     django,
@@ -18,7 +18,7 @@ requirements = [
 ]
 
 extras_require = {
-    'test': ['httpretty==0.9.4', 'coverage'],
+    'test': ['httpretty==0.9.5', 'coverage'],
 }
 
 setup(
