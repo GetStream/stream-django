@@ -1,7 +1,7 @@
 ## Stream Django
 [![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django) [![Coverage Status](https://coveralls.io/repos/github/GetStream/stream-django/badge.svg?branch=master)](https://coveralls.io/github/GetStream/stream-django?branch=master) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
 
-[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.5 up to and including 2.0 using Python 2.7 and 3.4, 3.5 and 3.6.
+[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.5 up to and including 2.1 using Python 2.7 and 3.4, 3.5 and 3.6.
 
 You can sign up for a Stream account at https://getstream.io/get_started.
 
