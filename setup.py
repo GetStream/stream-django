@@ -33,6 +33,7 @@ setup(
     license='BSD License',
     description='A Django app to build activity, news and notification feeds.',
     long_description=README,
+    long_description_content_type="text/markdown",
     url='https://getstream.io/',
     author='Tommaso Barbugli',
     author_email='tbarbugli@gmail.com',
