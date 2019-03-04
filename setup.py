@@ -13,7 +13,7 @@ else:
 
 requirements = [
     django,
-    'stream-python>=2.8.1',
+    'stream-python>=3.0.1',
     'pytz'
 ]
 
@@ -23,7 +23,7 @@ extras_require = {
 
 setup(
     name='stream-django',
-    version='1.5.0',
+    version='1.6.0',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=requirements,
