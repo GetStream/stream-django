@@ -9,7 +9,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
 if sys.version_info < (3, 0, 0):
     django = 'django>=1.8.10,<2.0'
 else:
-    django = 'django>=1.8.10,<2.2'
+    django = 'django>=1.8.10,<3.0'
 
 requirements = [
     django,
