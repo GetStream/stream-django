@@ -23,7 +23,7 @@ extras_require = {
 
 setup(
     name='stream-django',
-    version='1.6.0',
+    version='1.6.1',
     packages=['stream_django'],
     include_package_data=True,
     install_requires=requirements,
@@ -32,8 +32,8 @@ setup(
     test_suite='runtests.runtests',
     license='BSD License',
     description='A Django app to build activity, news and notification feeds.',
-    long_description=README,
     long_description_content_type="text/markdown",
+    long_description=README,
     url='https://getstream.io/',
     author='Tommaso Barbugli',
     author_email='tbarbugli@gmail.com',
