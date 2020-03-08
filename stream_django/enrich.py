@@ -3,8 +3,10 @@ from collections import defaultdict
 import operator
 import itertools
 
+
 try:
     from django.apps import apps
+    from django.core.exceptions import FieldDoesNotExist
     get_model = apps.get_model
 except ImportError:
     from django.db.models.loading import get_model
@@ -127,9 +129,12 @@ class Enrich(object):
             
             try:
                 lookup_field_name = model.activity_lookup_field()
-                lookup_field = model._meta.get_field(lookup_field_name)
-                f_id = lookup_field.to_python(f_id)
-            except AttributeError:
+                if lookup_field_name == 'pk':
+                    f_id = model._meta.pk.to_python(f_id)
+                else:
+                    lookup_field = model._meta.get_field(lookup_field_name)
+                    f_id = lookup_field.to_python(f_id)
+            except (AttributeError, FieldDoesNotExist):
                 f_id = model._meta.pk.to_python(f_id)
                 
             instance = objects[f_ct].get(f_id)
