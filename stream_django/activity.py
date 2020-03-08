@@ -20,17 +20,30 @@ def create_model_reference(model_instance):
     creates a reference to a model instance that can be stored in activities
 
     >>> from core.models import Like
-    >>> like = Like.object.get(id=1)
+    >>> like = Like.object.get(<lookup_field>=1)  where lookup_field defaults to 'pk'
     >>> create_reference(like)
     core.Like:1
 
     '''
+    try:
+        field_name = model_instance.activity_lookup_field()
+        content_id = getattr(model_instance, field_name)
+    except AttributeError:
+        content_id = model_instance.pk
+
     content_type = model_content_type(model_instance.__class__)
-    content_id = model_instance.pk
     return '%s:%s' % (content_type, content_id)
 
 
 class Activity(object):
+
+    @classmethod
+    def activity_lookup_field(cls):
+
+        '''
+        The name of the field to use for model lookups 
+        '''
+        return 'pk'
     
     @property
     def activity_author_feed(self):
@@ -78,7 +91,12 @@ class Activity(object):
 
     @property
     def activity_actor_id(self):
-        return self.activity_actor_attr.pk
+        try:
+            field_name = self.activity_actor_attr.activity_lookup_field()
+            actor_id = getattr(self.activity_actor_attr, field_name)
+        except AttributeError:
+            actor_id = self.activity_actor_attr.pk            
+        return actor_id
 
     @property
     def activity_actor(self):
