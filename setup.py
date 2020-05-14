@@ -13,7 +13,7 @@ else:
 
 requirements = [
     django,
-    'stream-python>=3.0.1',
+    'stream-python>=3.4.0',
     'pytz'
 ]
 
