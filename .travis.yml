@@ -18,13 +18,10 @@ matrix:
 
 install:
   - travis_retry pip install pep8==1.7.0
-  - travis_retry pip install python-coveralls
   - travis_retry pip install -e .
   - travis_retry pip install $DJANGO --upgrade
 script:
-  - coverage run --source=stream_django setup.py test
+  - setup.py test
 after_script:
   # ensure we validate against pep standards
-  - "pep8 --exclude=migrations --ignore=E501,E225,W293 stream"
-after_success:
-   - coveralls
+  - 'pep8 --exclude=migrations --ignore=E501,E225,W293 stream'
