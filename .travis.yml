@@ -5,7 +5,8 @@ python:
   - 3.7
   - 3.8
 env:
-  # - DJANGO="django>=3.1.0,<3.2"  # too soon
+  - DJANGO="django>=3.2.0,<3.3"
+  - DJANGO="django>=3.1.0,<3.2"
   - DJANGO="django>=3.0.0,<3.1"
   - DJANGO="django>=2.2.0,<3.0"
   - DJANGO="django>=2.1.0,<2.2.0"
@@ -21,7 +22,7 @@ install:
   - travis_retry pip install -e .
   - travis_retry pip install $DJANGO --upgrade
 script:
-  - setup.py test
+  - python setup.py test
 after_script:
   # ensure we validate against pep standards
   - 'pep8 --exclude=migrations --ignore=E501,E225,W293 stream'
