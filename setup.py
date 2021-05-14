@@ -14,7 +14,7 @@ else:
 requirements = [django, "stream-python>=3.0.1", "pytz"]
 
 extras_require = {
-    "test": ["httpretty==0.9.5"],
+    "test": ["httpretty==1.1.1"],
 }
 
 setup(
