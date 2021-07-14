@@ -36,7 +36,7 @@ class Activity(object):
     def activity_author_feed(self):
         '''
         The name of the feed where the activity will be stored; this is normally
-        used by the manager class to determine if the activity should be stored elsewehere than
+        used by the manager class to determine if the activity should be stored elsewhere than
         settings.USER_FEED
         '''
         pass
