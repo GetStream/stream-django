@@ -284,7 +284,7 @@ Disable automatic tracking of Activity models. Default ```False```
 
 ### Temporarily disabling the signals
 
-Model syncronization is disabled during schema/data migrations runs, syncdb and fixture loading (and during django test runs).
+Model synchronization is disabled during schema/data migrations runs, syncdb and fixture loading (and during django test runs).
 You can completely disable feed publishing via the ```STREAM_DISABLE_MODEL_TRACKING``` django setting.
 
 
