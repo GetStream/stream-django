@@ -1,0 +1,44 @@
+name: build
+on:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: [3.6, 3.7, 3.8, 3.9]
+        django:
+          - 'django>=3.2.0, <3.3'
+          - 'django>=3.1.0, <3.2'
+          - 'django>=3.0.0, <3.1'
+          - 'django>=2.2.0, <3.0'
+          - 'django>=2.1.0, <2.2.0'
+          - 'django>=2.0.0, <2.1.0'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Add pip bin to PATH
+        run: |
+          echo "/home/runner/.local/bin" >> $GITHUB_PATH
+
+      - name: Install deps with ${{ matrix.python }}
+        run: |
+          pip install ".[test, ci]"
+          pip install "${{ matrix.django }}" --upgrade
+
+      # ignore for now
+      # - name: Lint with ${{ matrix.python }}
+      #   if: ${{ matrix.python == '3.8' }}
+      #   run: make lint
+
+      - name: Install, test and code coverage with ${{ matrix.python }}
+        run: |
+          python setup.py install
+          make test
