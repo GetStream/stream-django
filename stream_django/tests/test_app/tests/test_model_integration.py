@@ -7,7 +7,7 @@ from stream_django.enrich import Enrich
 from stream_django.feed_manager import feed_manager
 
 
-api_url = re.compile(r'(us-east-api.)?stream-io-api.com(/api)?/*.')
+api_url = re.compile(r'(us-east-api.)?stream-io-api.com/.*')
 
 
 class PinTest(TestCase):
