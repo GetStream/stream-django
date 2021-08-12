@@ -1,7 +1,7 @@
 ## Stream Django
-[![Build Status](https://travis-ci.org/GetStream/stream-django.svg?branch=master)](https://travis-ci.org/GetStream/stream-django) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
+[![build](https://github.com/GetStream/stream-django/workflows/build/badge.svg)](https://github.com/GetStream/stream-django/actions) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
 
-[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.5 up to and including 2.2 using Python 2.7 and 3.4, 3.5, 3.6 and 3.7.
+[stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.11 up to and including 3.2 using Python 2.7 and 3.4, 3.5, 3.6+.
 
 You can sign up for a Stream account at https://getstream.io/get_started.
 
@@ -371,6 +371,6 @@ special_feed.follow('timeline:60')
 
 ### Copyright and License Information
 
-Copyright (c) 2014-2020 Stream.io Inc, and individual contributors. All rights reserved.
+Copyright (c) 2014-2021 Stream.io Inc, and individual contributors. All rights reserved.
 
 See the file "LICENSE" for information on the history of this software, terms & conditions for usage, and a DISCLAIMER OF ALL WARRANTIES.
