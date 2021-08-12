@@ -17,7 +17,7 @@ extras_require = {"test": ["httpretty==1.1.1"], "ci": ["black", "flake8", "pytes
 
 setup(
     name="stream-django",
-    version="1.6.2",
+    version="1.7.0",
     packages=["stream_django"],
     include_package_data=True,
     install_requires=requirements,
