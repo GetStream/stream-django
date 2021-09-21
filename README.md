@@ -316,7 +316,7 @@ enriched_activities = enricher.enrich_activities(activities)
 
 #### Change how models are retrieved
 
-The enrich class that comes with the packages tries to minimise the amount of database queries. The models are grouped by their class and then retrieved with a pk__in query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
+The enrich class that comes with the packages tries to minimise the amount of database queries. The models are grouped by their class and then retrieved with a bulk query. You can implement a different approach to retrieve the instances of a model subclassing the ```stream_django.enrich.Enrich``` class.
 
 To change the retrieval for every model you should override the ```fetch_model_instances``` method; in alternative you can change how certain models' are retrieved by implementing the hook function ```fetch_<model_name>_instances```
 
@@ -326,10 +326,10 @@ class MyEnrich(Enrich):
     Overwrites how model instances are fetched from the database
     '''
 
-    def fetch_model_instances(self, modelClass, pks):
+    def fetch_model_instances(self, modelClass, lookup_values):
         '''
-        returns a dict {id:modelInstance} with instances of model modelClass
-        and pk in pks
+        returns a dict {lookup_value:modelInstance} with instances of model modelClass
+        and lookup_value in lookup_values
         '''
         ...
 
@@ -338,7 +338,7 @@ class AnotherEnrich(Enrich):
     Overwrites how Likes instances are fetched from the database
     '''
 
-    def fetch_like_instances(self, pks):
+    def fetch_like_instances(self, lookup_values):
         return {l.id: l for l in Like.objects.cached_likes(ids)}
 
 ```

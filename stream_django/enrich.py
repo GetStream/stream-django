@@ -3,8 +3,10 @@ from collections import defaultdict
 import operator
 import itertools
 
+
 try:
     from django.apps import apps
+    from django.core.exceptions import FieldDoesNotExist
     get_model = apps.get_model
 except ImportError:
     from django.db.models.loading import get_model
@@ -91,18 +93,23 @@ class Enrich(object):
             model_references[f_ct].append(f_id)
         return model_references
 
-    def fetch_model_instances(self, modelClass, pks):
+    def fetch_model_instances(self, modelClass, lookup_values):
         '''
-        returns a dict {id:modelInstance} with instances of model modelClass
-        and pk in pks
+        returns a dict {<lookup_value>:modelInstance} with instances of model modelClass
+        and lookup_value in lookup_values  (i.e., {1:<obj_1>} or {<uuid>:<obj_2>})
         '''
+        try:
+            lookup_field_name = modelClass.activity_lookup_field()
+        except AttributeError:
+            lookup_field_name = 'pk'
+        
         hook_function_name = 'fetch_%s_instances' % (modelClass._meta.object_name.lower(), )
         if hasattr(self, hook_function_name):
-            return getattr(self, hook_function_name)(pks)
+            return getattr(self, hook_function_name)(lookup_values)
         qs = modelClass.objects
         if hasattr(modelClass, 'activity_related_models') and modelClass.activity_related_models() is not None:
             qs = qs.select_related(*modelClass.activity_related_models())
-        return qs.in_bulk(pks)
+        return qs.in_bulk(lookup_values, field_name=lookup_field_name)
 
     def _fetch_objects(self, references):
         objects = defaultdict(list)
@@ -119,8 +126,17 @@ class Enrich(object):
                 continue
             f_ct, f_id = activity[field].split(':')
             model = get_model(*f_ct.split('.'))
-            f_id = model._meta.pk.to_python(f_id)
-
+            
+            try:
+                lookup_field_name = model.activity_lookup_field()
+                if lookup_field_name == 'pk':
+                    f_id = model._meta.pk.to_python(f_id)
+                else:
+                    lookup_field = model._meta.get_field(lookup_field_name)
+                    f_id = lookup_field.to_python(f_id)
+            except (AttributeError, FieldDoesNotExist):
+                f_id = model._meta.pk.to_python(f_id)
+                
             instance = objects[f_ct].get(f_id)
             if instance is None:
                 activity.track_not_enriched_field(field, activity[field])
