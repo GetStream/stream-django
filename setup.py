@@ -9,7 +9,7 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
 if sys.version_info < (3, 0, 0):
     django = "django>=1.11.29,<2.0"
 else:
-    django = "django>=2.0,<3.3"  # checked https://docs.djangoproject.com/en/dev/releases/3.2/#backwards-incompatible-3-2
+    django = "django>=2.0,<5.0"  # checked https://docs.djangoproject.com/en/dev/releases/3.2/#backwards-incompatible-3-2
 
 requirements = [django, "stream-python>=3.0.1", "pytz"]
 
@@ -44,6 +44,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Internet :: WWW/HTTP",
         "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
     ],

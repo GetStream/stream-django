@@ -1,7 +1,12 @@
-import collections
+import sys
 from collections import defaultdict
 import operator
 import itertools
+
+if sys.version_info >= (3, 8, 0):
+    from collections.abc import MutableMapping
+else:
+    from collections import MutableMapping
 
 try:
     from django.apps import apps
@@ -18,7 +23,7 @@ def combine_dicts(a, b, op=operator.add):
 DEFAULT_FIELDS = ('actor', 'object')
 
 
-class EnrichedActivity(collections.MutableMapping):
+class EnrichedActivity(MutableMapping):
 
     def __init__(self, activity_data):
         self.activity_data = activity_data
