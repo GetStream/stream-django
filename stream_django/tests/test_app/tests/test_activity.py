@@ -1,8 +1,11 @@
 import unittest
-from stream_django.activity import create_model_reference
-from stream_django.activity import model_content_type
-from stream_django.activity import create_reference
-from stream_django.tests import Tweet
+
+from stream_django.activity import (
+    create_model_reference,
+    create_reference,
+    model_content_type,
+)
+from stream_django.tests.tweet import Tweet
 
 
 class ActivityTestCase(unittest.TestCase):

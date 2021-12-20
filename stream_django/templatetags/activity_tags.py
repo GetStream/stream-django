@@ -25,7 +25,7 @@ def handle_not_enriched_data(activity, policy):
     elif policy == FAIL:
         raise MissingDataException(message)
     elif policy == LOG:
-        logger.warn(message)
+        logger.warning(message)
     else:
         raise TypeError("%s is not a valid missing_data_policy" % policy)
 

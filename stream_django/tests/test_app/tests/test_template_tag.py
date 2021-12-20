@@ -1,10 +1,8 @@
-from django.template import Context
-from django.template import Template
-from django.template import TemplateDoesNotExist
+from django.template import Context, Template, TemplateDoesNotExist
 from django.test import TestCase
+
 from stream_django.enrich import EnrichedActivity
 from stream_django.exceptions import MissingDataException
-
 
 simple_template = """
 {%% load activity_tags %%}

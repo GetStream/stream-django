@@ -1,9 +1,10 @@
-import httpretty
 import re
-from stream_django.feed_manager import feed_manager
-from stream_django.tests import Tweet
 import unittest
 
+import httpretty
+
+from stream_django.feed_manager import feed_manager
+from stream_django.tests.tweet import Tweet
 
 api_url = re.compile(r"(us-east-api.)?stream-io-api.com/.*")
 

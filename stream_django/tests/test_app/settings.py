@@ -7,7 +7,7 @@ SECRET_KEY = "insecure"
 AUTH_USER_MODEL = "auth.User"
 
 INSTALLED_APPS = [
-    "test_app",
+    "stream_django.tests.test_app",
     "stream_django",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -37,5 +37,7 @@ TEMPLATES = [
         },
     },
 ]
+
+USE_TZ = True
 
 MIDDLEWARE_CLASSES = []

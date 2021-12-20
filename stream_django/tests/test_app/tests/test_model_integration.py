@@ -1,11 +1,12 @@
+import re
+
+import httpretty
 from django.contrib.auth import get_user_model
 from django.test import TestCase
-import re
-from test_app import models
-import httpretty
+
 from stream_django.enrich import Enrich
 from stream_django.feed_manager import feed_manager
-
+from stream_django.tests.test_app import models
 
 api_url = re.compile(r"(us-east-api.)?stream-io-api.com/.*")
 
@@ -82,9 +83,11 @@ class PinTest(TestCase):
         enriched_data = self.enricher.enrich_activities([activity])
         self.assertFalse(enriched_data[0].enriched)
         self.assertIn("object", enriched_data[0].not_enriched_data)
-        self.assertDictContainsSubset(
-            dict(object=activity["object"]), enriched_data[0].not_enriched_data
-        )
+
+        activity_obj = set(dict(object=activity["object"]).items())
+        enriched_obj = set(enriched_data[0].not_enriched_data.items())
+        assert activity_obj.issubset(enriched_obj)
+
         self.assertEqual(activity["object"], enriched_data[0]["object"])
 
     def test_disabled_tracking(self):

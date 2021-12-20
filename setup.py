@@ -9,26 +9,36 @@ with open(os.path.join(os.path.dirname(__file__), "README.md")) as readme:
 if sys.version_info < (3, 0, 0):
     django = "django>=1.11.29,<2.0"
 else:
-    django = "django>=2.0,<5.0"  # checked https://docs.djangoproject.com/en/dev/releases/3.2/#backwards-incompatible-3-2
+    django = "django>=2.0,<5.0"
 
 requirements = [django, "stream-python>=3.0.1", "pytz"]
 
-extras_require = {"test": ["httpretty==1.1.1"], "ci": ["black", "flake8", "pytest-cov"]}
+extras_require = {
+    "test": ["httpretty"],
+    "ci": ["black; python_version > '3.6'", "flake8", "pytest-cov", "pytest-django"],
+}
+
+version = "1.7.1"
 
 setup(
     name="stream-django",
-    version="1.7.1",
+    version=version,
+    url="https://github.com/GetStream/stream-django",
+    project_urls={
+        "Bug Tracker": "https://github.com/GetStream/stream-django/issues",
+        "Documentation": "https://getstream.io/activity-feeds/docs/python/adding_activities/?language=python",
+        "Release Notes": "https://github.com/GetStream/stream-django/releases/tag/{}".format(
+            version
+        ),
+    },
     packages=["stream_django"],
     include_package_data=True,
     install_requires=requirements,
     extras_require=extras_require,
-    tests_require=["stream_django[test]"],
-    test_suite="runtests.runtests",
     license="BSD License",
     description="A Django app to build activity, news and notification feeds.",
     long_description_content_type="text/markdown",
     long_description=README,
-    url="https://getstream.io/",
     author="Tommaso Barbugli",
     author_email="tbarbugli@gmail.com",
     classifiers=[

@@ -47,6 +47,6 @@ jobs:
         run: make lint
 
       - name: Install, test and code coverage with ${{ matrix.python }}
-        run: |
-          python setup.py install
-          make test
+        env:
+          PYTHONPATH: ${{ github.workspace }}
+        run: make test

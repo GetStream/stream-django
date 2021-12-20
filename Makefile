@@ -16,6 +16,9 @@ lint-fix:
 	black stream_django
 
 test:  ## Run tests
-	STREAM_KEY=$(STREAM_KEY) STREAM_SECRET=$(STREAM_SECRET) python setup.py test
+	STREAM_API_KEY=$(STREAM_KEY) \
+	STREAM_API_SECRET=$(STREAM_SECRET) \
+	DJANGO_SETTINGS_MODULE=stream_django.tests.test_app.settings \
+	pytest stream_django/tests
 
 check: lint test  ## Run linters + tests
