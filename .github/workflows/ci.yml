@@ -42,10 +42,9 @@ jobs:
           pip install ".[test, ci]"
           pip install "${{ matrix.django }}" --upgrade
 
-      # ignore for now
-      # - name: Lint with ${{ matrix.python }}
-      #   if: ${{ matrix.python == '3.8' }}
-      #   run: make lint
+      - name: Lint with ${{ matrix.python }}
+        if: ${{ matrix.python == '3.8' }}
+        run: make lint
 
       - name: Install, test and code coverage with ${{ matrix.python }}
         run: |

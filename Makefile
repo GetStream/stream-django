@@ -9,8 +9,8 @@ help: ## Display this help message
 	{printf "\033[36m%-40s\033[0m %s\n", $$1, $$2}'
 
 lint:  ## Run linters
-	black --check stream
-	flake8 --ignore=E501,E225,W293,W503,F401 stream_django
+	black --check stream_django
+	flake8 --ignore=E501,E203,W503 stream_django
 
 lint-fix:
 	black stream_django

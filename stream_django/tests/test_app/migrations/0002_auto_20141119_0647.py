@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations
 
 
 def create_a_user(apps, schema_editor):
     User = apps.get_model("auth", "User")
-    User.objects.create(username='segundo')
+    User.objects.create(username="segundo")
 
 
 def create_a_pin(apps, schema_editor):
@@ -18,7 +18,7 @@ def create_a_pin(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('test_app', '0001_initial'),
+        ("test_app", "0001_initial"),
     ]
 
     operations = [
