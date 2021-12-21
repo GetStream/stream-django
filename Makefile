@@ -22,3 +22,7 @@ test:  ## Run tests
 	pytest stream_django/tests
 
 check: lint test  ## Run linters + tests
+
+reviewdog:
+	black --check --diff --quiet stream_django | reviewdog -f=diff -f.diff.strip=0 -filter-mode="diff_context" -name=black -reporter=github-pr-review
+	flake8 --ignore=E501,E203,W503 stream_django | reviewdog -f=flake8 -name=flake8 -reporter=github-pr-review
