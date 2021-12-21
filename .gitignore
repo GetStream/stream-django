@@ -22,6 +22,7 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
+.python-version
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -47,12 +48,15 @@ coverage.xml
 
 # Django stuff:
 *.log
+simple_test_db
 
 # Sphinx documentation
 docs/_build/
 
 # PyBuilder
 target/
-
+.vscode
 .DS_Store
 /.eggs/
+.envrc
+env

@@ -16,7 +16,9 @@ def disable_model_tracking(sender, **kwargs):
 
 if DJANGO_MAJOR_VERSION == 1.6:
     from django.db.models.signals import pre_syncdb
+
     pre_syncdb.connect(disable_model_tracking)
 elif DJANGO_MAJOR_VERSION > 1.6:
     from django.db.models.signals import pre_migrate
+
     pre_migrate.connect(disable_model_tracking)

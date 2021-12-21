@@ -4,11 +4,10 @@ from stream_django.activity import Activity
 from stream_django.client import stream_client
 
 
-EVERY_MODEL = 'EVERY_MODEL'
+EVERY_MODEL = "EVERY_MODEL"
 
 
 class FeedManager(object):
-
     def __init__(self):
         self.notification_feed = conf.NOTIFICATION_FEED
         self.user_feed = conf.USER_FEED
@@ -67,15 +66,15 @@ class FeedManager(object):
     def remove_activity_from_feed(self, instance):
         feed_type = self.get_actor_feed(instance)
         feed = self.get_feed(feed_type, instance.activity_actor_id)
-        result = feed.remove_activity(
-            foreign_id=instance.activity_foreign_id)
+        result = feed.remove_activity(foreign_id=instance.activity_foreign_id)
         return result
 
     def should_track(self, model):
         disabled_all = conf.DISABLE_MODEL_TRACKING or self._disabledModelTracking.get(
-            EVERY_MODEL)
+            EVERY_MODEL
+        )
         model_disabled = self._disabledModelTracking.get(model)
-        return (not disabled_all and not model_disabled)
+        return not disabled_all and not model_disabled
 
     def activity_created(self, sender, instance, created, raw, **kwargs):
         if self.should_track(sender) and created and not raw:
@@ -86,6 +85,6 @@ class FeedManager(object):
             return self.remove_activity_from_feed(instance)
 
     def bind_model(self, sender, **kwargs):
-        if issubclass(sender, (Activity, )):
+        if issubclass(sender, (Activity,)):
             post_save.connect(self.activity_created, sender=sender)
             post_delete.connect(self.activity_delete, sender=sender)

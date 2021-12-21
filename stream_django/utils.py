@@ -9,8 +9,8 @@ def get_class_from_string(path, default=None):
         from importlib import import_module
     except ImportError:
         from django.utils.importlib import import_module
-    i = path.rfind('.')
-    module, attr = path[:i], path[i + 1:]
+    i = path.rfind(".")
+    module, attr = path[:i], path[i + 1 :]
     mod = import_module(module)
     try:
         return getattr(mod, attr)
@@ -18,5 +18,4 @@ def get_class_from_string(path, default=None):
         if default:
             return default
         else:
-            raise ImportError(
-                'Cannot import name {} (from {})'.format(attr, mod))
+            raise ImportError("Cannot import name {} (from {})".format(attr, mod))
