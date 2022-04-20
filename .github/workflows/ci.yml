@@ -28,14 +28,10 @@ jobs:
           - python: "3.10"
             django: 'django>=2.0.0, <2.1.0'
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python }}
-
-      - name: Add pip bin to PATH
-        run: |
-          echo "/home/runner/.local/bin" >> $GITHUB_PATH
 
       - name: Install deps with ${{ matrix.python }}
         run: |
