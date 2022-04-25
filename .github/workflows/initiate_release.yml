@@ -1,0 +1,47 @@
+name: Create release PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The new version number. Example: 1.40.1"
+        required: true
+
+jobs:
+  init_release:
+    name: 🚀 Create release PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # gives the changelog generator access to all previous commits
+
+      - name: Update CHANGELOG.md, setup.py and push release branch
+        env:
+          VERSION: ${{ github.event.inputs.version }}
+        run: |
+          npx --yes standard-version@9.3.2 --release-as "$VERSION" --skip.tag --skip.commit
+          git config --global user.name 'github-actions' 
+          git config --global user.email 'release@getstream.io'
+          git checkout -q -b "release-$VERSION"
+          git commit -am "chore(release): $VERSION"
+          git push -q -u origin "release-$VERSION"
+
+      - name: Get changelog diff
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const get_change_log_diff = require('./scripts/get_changelog_diff.js')
+            core.exportVariable('CHANGELOG', get_change_log_diff())
+
+      - name: Open pull request
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create \
+            -t "chore(release): ${{ github.event.inputs.version }}" \
+            -b "# :rocket: ${{ github.event.inputs.version }}
+            Make sure to use squash & merge when merging!
+            Once this is merged, another job will kick off automatically and publish the package.
+            # :memo: Changelog
+            ${{ env.CHANGELOG }}"
