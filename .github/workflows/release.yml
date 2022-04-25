@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+      - main
+
+jobs:
+  Release:
+    name: 🚀 Release
+    if: github.event.pull_request.merged && startsWith(github.head_ref, 'release-')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const get_change_log_diff = require('./scripts/get_changelog_diff.js')
+            core.exportVariable('CHANGELOG', get_change_log_diff())
+
+            // Getting the release version from the PR source branch
+            // Source branch looks like this: release-1.0.0
+            const version = context.payload.pull_request.head.ref.split('-')[1]
+            core.exportVariable('VERSION', version)
+
+      - uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Publish to PyPi
+        env:
+          TWINE_USERNAME: "__token__"
+          TWINE_PASSWORD: "${{ secrets.PYPI_TOKEN }}"
+        run: |
+          pip install -q twine==3.7.1 wheel==0.37.1
+          python setup.py sdist bdist_wheel
+          twine upload --non-interactive dist/*
+
+      - name: Create release on GitHub
+        uses: ncipollo/release-action@v1
+        with:
+          body: ${{ env.CHANGELOG }}
+          tag: ${{ env.VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
