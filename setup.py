@@ -18,7 +18,7 @@ extras_require = {
     "ci": ["black; python_version > '3.6'", "flake8", "pytest-cov", "pytest-django"],
 }
 
-version = "1.7.1"
+version = "1.8.0"
 
 setup(
     name="stream-django",
