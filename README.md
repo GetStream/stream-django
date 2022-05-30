@@ -1,4 +1,4 @@
-## Stream Django
+## Stream Django <!-- omit in toc -->
 [![build](https://github.com/GetStream/stream-django/workflows/build/badge.svg)](https://github.com/GetStream/stream-django/actions) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
 
 [stream-django](https://github.com/GetStream/stream-django) is a Django client for [Stream](https://getstream.io/), it supports Django from 1.11 up to and including 4.0 using Python 2.7 and 3.4, 3.5, 3.6+.
@@ -6,6 +6,8 @@
 You can sign up for a Stream account at https://getstream.io/get_started.
 
 Note there is also a lower level [Python - Stream integration](https://github.com/getstream/stream-python) library which is suitable for all Python applications.
+
+> 💡 This is a library for the **Feeds** product. The Chat SDKs can be found [here](https://getstream.io/chat/docs/).
 
 ### Build activity streams & news feeds
 
@@ -32,18 +34,30 @@ You can check out our example apps built using this library (you can deploy them
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-- [What can you build?](#what-can-you-build)
-- [Demo](#demo)
+- [Build activity streams & news feeds](#build-activity-streams--news-feeds)
+- [Example apps](#example-apps)
+- [Table of Contents](#table-of-contents)
 - [Installation](#installation)
 - [Model integration](#model-integration)
+  - [Activity fields](#activity-fields)
+  - [Activity extra data](#activity-extra-data)
 - [Feed manager](#feed-manager)
+  - [Feeds bundled with feed_manager](#feeds-bundled-with-feed_manager)
+    - [User feed:](#user-feed)
+    - [News feeds:](#news-feeds)
+    - [Notification feed:](#notification-feed)
+  - [Follow a feed](#follow-a-feed)
 - [Showing the newsfeed](#showing-the-newsfeed)
   - [Activity enrichment](#activity-enrichment)
   - [Templating](#templating)
 - [Settings](#settings)
 - [Temporarily disabling the signals](#temporarily-disabling-the-signals)
 - [Customizing enrichment](#customizing-enrichment)
-- [Low level APIs access](#low-level-apis-access)
+  - [Enrich extra fields](#enrich-extra-fields)
+  - [Change how models are retrieved](#change-how-models-are-retrieved)
+  - [Preload related data](#preload-related-data)
+- [Full documentation and Low level APIs access](#full-documentation-and-low-level-apis-access)
+- [Copyright and License Information](#copyright-and-license-information)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
