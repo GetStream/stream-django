@@ -168,7 +168,7 @@ timeline_aggregated = feed_manager.get_news_feeds(user_id)['timeline_aggregated'
 The notification feed can be used to build notification functionality.
 
 <p align="center">
-  <img src="http://feedly.readthedocs.org/en/latest/_images/fb_notification_system.png" alt="Notification feed" title="Notification feed"/>
+  <img src="./assets/feeds-notifications.webp" alt="Notification feed" title="Notification feed"/>
 
 Below we show an example of how you can read the notification feed.
 ```python

@@ -16,7 +16,6 @@ def create_a_pin(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("test_app", "0001_initial"),
     ]
