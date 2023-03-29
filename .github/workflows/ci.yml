@@ -11,8 +11,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python: [3.6, 3.7, 3.8, 3.9, "3.10"]
+        python: [3.6, 3.7, 3.8, 3.9, "3.10", "3.11"]
         django:
+          - "django>=4.1.0, <4.0"
           - "django>=4.0.0, <4.1"
           - "django>=3.2.0, <3.3"
           - "django>=3.1.0, <3.2"
@@ -27,6 +28,9 @@ jobs:
             django: "django>=4.0.0, <4.1"
           - python: "3.10"
             django: "django>=2.0.0, <2.1.0"
+          - python: "3.11"
+            django: "django>=2.0.0, <2.1.0"
+
     steps:
       - uses: actions/checkout@v3
 
