@@ -7,6 +7,10 @@ on:
       - master
       - main
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
   Release:
     name: 🚀 Release
