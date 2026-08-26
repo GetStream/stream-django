@@ -13,6 +13,8 @@ simple_template = """
 
 
 class TemplateTagTest(TestCase):
+    databases = {"default"}
+
     def create_template(self, template_prefix="", missing_data_policy="warn"):
         return Template(simple_template % (template_prefix, missing_data_policy))
 

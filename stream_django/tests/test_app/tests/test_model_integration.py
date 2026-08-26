@@ -12,6 +12,8 @@ api_url = re.compile(r"(us-east-api.)?stream-io-api.com/.*")
 
 
 class PinTest(TestCase):
+    databases = {"default"}
+
     def setUp(self):
         feed_manager.enable_model_tracking()
         self.User = get_user_model()

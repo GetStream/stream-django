@@ -7,17 +7,21 @@ on:
       - master
       - main
 
+permissions:
+  contents: write
+  pull-requests: read
+
 jobs:
   Release:
     name: 🚀 Release
     if: github.event.pull_request.merged && startsWith(github.head_ref, 'release-')
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/github-script@v6
+      - uses: actions/github-script@v9
         with:
           script: |
             const get_change_log_diff = require('./scripts/get_changelog_diff.js')
@@ -28,7 +32,7 @@ jobs:
             const version = context.payload.pull_request.head.ref.split('-')[1]
             core.exportVariable('VERSION', version)
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.10"
 
