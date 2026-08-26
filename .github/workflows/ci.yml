@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.python == '3.7' && 'ubuntu-22.04' || 'ubuntu-latest' }}
     strategy:
       fail-fast: false
       matrix:
@@ -36,9 +36,9 @@ jobs:
           - python: "3.11"
             django: "django>=2.1.0, <2.2.0"
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python }}
 
