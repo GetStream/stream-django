@@ -1,4 +1,7 @@
-> **`stream-django` is no longer maintained and is archived.** It integrated Feeds v2 with Django. New projects should use Feeds v3 with [`stream-py`](https://github.com/GetStream/stream-py) (PyPI `getstream`). Migration guide: https://getstream.io/activity-feeds/docs/python/v2-to-v3-migration/
+> **`stream-django` is a Feeds v2 integration for Django and is now in maintenance mode.** It will continue to
+> receive critical fixes, so it is safe to keep using with a v2 app. New projects should start
+> with Feeds v3 and [`stream-py`](https://github.com/GetStream/stream-py) (PyPI `getstream`).
+> Migration guide: https://getstream.io/activity-feeds/docs/python/v2-to-v3-migration/
 
 ## Stream Django <!-- omit in toc -->
 [![build](https://github.com/GetStream/stream-django/workflows/build/badge.svg)](https://github.com/GetStream/stream-django/actions) [![PyPI version](https://badge.fury.io/py/stream-django.svg)](http://badge.fury.io/py/stream-django)
